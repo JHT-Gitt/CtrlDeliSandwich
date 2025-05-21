@@ -43,16 +43,16 @@ public class Home {
     }
     public void banner(){
     System.out.println("===================================");
-    System.out.println("             Welcome to");
-    System.out.println(YELLOW +  "                J's");
+    System.out.printf("%22s\n","Welcome to");
+    System.out.printf("%24s\n",YELLOW +  "J's");
     System.out.println("   🥪  🥪  CNTRL + DELI  🥪  🥪" + RESET );
-    System.out.println("             Sandwiches");
+    System.out.printf("%22s\n","Sandwiches");
     System.out.println("===================================");
     }
     public void logIn(){
         CusterFileHandler login = new CusterFileHandler();
 
-        System.out.println("=============Log-In===============");
+        System.out.println("=============" + YELLOW + "Log-In" +RESET + "===============");
         while(true) {
             System.out.print("Email: ");
             String email = scanner.next();
@@ -70,7 +70,7 @@ public class Home {
     }
     public void signUp(){
         File cust_file = new File("src/main/resources/customer.csv");
-        System.out.println("============Sign-Up================");
+        System.out.println("============"+ YELLOW + "Sign-Up" +RESET + "================");
         System.out.print("Enter first name: ");
         String firstName = scanner.next();
         System.out.print("Enter last name: ");
@@ -93,11 +93,13 @@ public class Home {
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
-        display();
+        loginAfterSign();
 
     }
     public void loginAfterSign(){
+
         System.out.println("===================================");
+        System.out.println(" H - Home ");
         System.out.println(" L - Log-in ");
         System.out.println(" E - Exit");
         System.out.println("===================================");
@@ -106,6 +108,7 @@ public class Home {
             String enter = scanner.next().toUpperCase();
 
             switch (enter){
+                case "H" -> display();
                 case "L" -> logIn();
                 case "E" -> {
                     System.out.println("Goodbye");
@@ -121,8 +124,8 @@ public class Home {
 
         Random r = new Random();
         int guestNum = 10000 + r.nextInt(90000);
-        String g = "Guest";
-        System.out.println(YELLOW + g+guestNum + RESET);
+        String g = "GUEST";
+        System.out.println(GREEN + "\nHello " + YELLOW + g+guestNum + RESET + GREEN+" ! How can I help you ?"+ RESET);
         menu.order();
 
     }
