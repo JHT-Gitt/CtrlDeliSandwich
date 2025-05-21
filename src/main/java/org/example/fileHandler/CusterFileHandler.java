@@ -1,14 +1,14 @@
 package org.example.fileHandler;
 
-import org.example.customer.Login;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
 
 public class CusterFileHandler {
+    public static final String YELLOW = "\u001B[33m";
+    public static final String RESET = "\u001B[0m";
+    public static final String GREEN = "\u001B[32m";
     private static final String cust_file = "src/main/resources/customer.csv";
 
     public boolean member(String email, String password){
@@ -24,6 +24,9 @@ public class CusterFileHandler {
             String filePassword = log[4];
 
             if(fileEmail.equalsIgnoreCase(email) && filePassword.equalsIgnoreCase(password)){
+                System.out.println( GREEN +"Login Successful !" );
+                System.out.println();
+                System.out.println("Hello " + YELLOW + fileFirstname.toUpperCase() + RESET + GREEN + " ! How can I help you ?" + RESET );
                 return true;
             }
         }
@@ -32,6 +35,5 @@ public class CusterFileHandler {
     }
         return false;
     }
-
 
 }
