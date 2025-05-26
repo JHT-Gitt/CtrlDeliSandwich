@@ -1,11 +1,8 @@
 package org.example.screens;
 
-import org.example.Receipt;
-
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
-public class Menu {
+public class OrderScreen {
     public static final String YELLOW = "\u001B[33m";
     public static final String RESET = "\u001B[0m";
     public static final String GREEN = "\u001B[32m";
@@ -14,6 +11,7 @@ public class Menu {
    // Home h = new Home();
    // private Home home;
     Scanner scanner = new Scanner(System.in);
+    Order om = new Order();
     public void order(){
 
         System.out.println("=========="+ YELLOW + "HOME SCREEN" +RESET + "==============");
@@ -55,6 +53,24 @@ public class Menu {
         System.out.println(" 5 - Checkout");
         System.out.println(" 0 - Cancel Order");
         System.out.println("===================================");
+        while(true) {
+            try {
+                System.out.print("Enter: ");
+                int enter = scanner.nextInt();
+
+                switch (enter){
+                    case 0 ->{
+                        System.out.println("Goodbye and Have a great day 👋");
+                        System.exit(0);
+                    }
+                    case 1 -> om.addSandwich();
+                    default -> System.out.println("Invalid input. Try again");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine();
+            }
+        }
 
     }
 

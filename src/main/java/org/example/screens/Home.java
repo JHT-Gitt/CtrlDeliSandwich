@@ -1,6 +1,5 @@
 package org.example.screens;
 
-import org.example.Receipt;
 import org.example.fileHandler.CusterFileHandler;
 
 import java.io.*;
@@ -14,7 +13,7 @@ public class Home {
     public static final String RESET = "\u001B[0m";
     public static final String GREEN = "\u001B[32m";
     public String getGuest = "";
-    Menu menu = new Menu();
+    OrderScreen menu = new OrderScreen();
     CusterFileHandler login = new CusterFileHandler();
 
     public void display(){
