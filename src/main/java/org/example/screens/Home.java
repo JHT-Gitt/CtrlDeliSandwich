@@ -1,5 +1,6 @@
 package org.example.screens;
 
+import org.example.Receipt;
 import org.example.fileHandler.CusterFileHandler;
 
 import java.io.*;
@@ -7,34 +8,36 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Home {
+
     Scanner scanner = new Scanner(System.in);
     public static final String YELLOW = "\u001B[33m";
     public static final String RESET = "\u001B[0m";
     public static final String GREEN = "\u001B[32m";
-
+    public String getGuest = "";
     Menu menu = new Menu();
+    CusterFileHandler login = new CusterFileHandler();
 
     public void display(){
         String enter;
-    banner();
+        banner();
         System.out.println(GREEN + "💥%10 member off💥" + RESET);
-        System.out.println(" L - Log-in     \n S - Sign-up");
+        System.out.println(" L - Log-in     \n S - Sign-in");
         System.out.println(" G - Continue as Guest \n X - Exit");
         System.out.println("===================================");
         while (true) {
             try {
-        System.out.print("Enter: ");
-        enter = scanner.next().toUpperCase();
-        switch (enter){
-            case "L" -> logIn();
-            case "S" -> signUp();
-            case "G" -> guest();
-            case "X" -> {
-                System.out.println("Goodbye");
-                System.exit(0);
-            }
-            default -> System.out.println("Invalid input. Try again");
-        }
+                System.out.print("Enter: ");
+                enter = scanner.next().toUpperCase();
+                switch (enter){
+                    case "L" -> logIn();
+                    case "S" -> signUp();
+                    case "G" -> guest();
+                    case "X" -> {
+                        System.out.println("Goodbye");
+                        System.exit(0);
+                    }
+                    default -> System.out.println("Invalid input. Try again");
+                }
             } catch (Exception e) {
                 System.out.println("Invalid input. Please enter a number.");
                 scanner.nextLine();
@@ -42,19 +45,19 @@ public class Home {
         }
     }
     public void banner(){
-    System.out.println("===================================");
-    System.out.printf("%22s\n","Welcome to");
-    System.out.printf("%24s\n",YELLOW +  "J's");
-    System.out.println("   🥪  🥪  CNTRL + DELI  🥪  🥪" + RESET );
-    System.out.printf("%22s\n","Sandwiches");
-    System.out.println("===================================");
+        System.out.println("===================================");
+        System.out.printf("%22s\n","Welcome to");
+        System.out.printf("%24s\n",YELLOW +  "J's");
+        System.out.println("   🥪  🥪  CNTRL + DELI  🥪  🥪" + RESET );
+        System.out.printf("%22s\n","Sandwiches");
+        System.out.println("===================================");
     }
     public void logIn(){
-        CusterFileHandler login = new CusterFileHandler();
 
-        System.out.println("=============" + YELLOW + "Log-In" +RESET + "===============");
+
+        System.out.println("==============" + YELLOW + "Log-In" +RESET + "===============");
         while(true) {
-            System.out.print("Email: ");
+            System.out.print("Email   : ");
             String email = scanner.next();
             System.out.print("Password: ");
             String password = scanner.next();
@@ -70,13 +73,21 @@ public class Home {
     }
     public void signUp(){
         File cust_file = new File("src/main/resources/customer.csv");
-        System.out.println("============"+ YELLOW + "Sign-Up" +RESET + "================");
+        String email;
+        System.out.println("============"+ YELLOW + "Sign-In" +RESET + "================");
         System.out.print("Enter first name: ");
         String firstName = scanner.next();
         System.out.print("Enter last name: ");
         String lastName = scanner.next();
-        System.out.print("Enter email: ");
-        String email = scanner.next();
+        while (true) {
+            System.out.print("Email: ");
+            email = scanner.next();
+            if (login.checkEmail(email)) {
+                System.out.println("That email is already registered. Try another.");
+            } else {
+                break;
+            }
+        }
         System.out.print("Enter phone number: ");
         String phone = scanner.next();
         System.out.print("Enter password: ");
@@ -85,11 +96,13 @@ public class Home {
         String newCustomer = String.join("|", firstName, lastName, email, phone, password);
         // Append to the CSV file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(cust_file, true))) {
-            writer.newLine();
+            if (cust_file.length() > 0) {
+                writer.newLine();
+            }
             writer.write(newCustomer);
-            System.out.println(GREEN + "Sign-up successful!" + RESET);
-
-
+            System.out.println("===================================");
+            System.out.printf(GREEN + "%30s\n", "✅Sign-In Successful !✅" + RESET);
+            login = new CusterFileHandler();  // RELOADS customer data
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
@@ -120,13 +133,23 @@ public class Home {
 
         }
     }
-    private void guest() {
+    public void guest() {
 
         Random r = new Random();
         int guestNum = 10000 + r.nextInt(90000);
-        String g = "GUEST";
-        System.out.println(GREEN + "\nHello " + YELLOW + g+guestNum + RESET + GREEN+" ! How can I help you ?"+ RESET);
+        System.out.println("===================================");
+        String g = "GUEST" + guestNum;
+        System.out.printf( GREEN + "%40s\n", "Hello " + YELLOW + g.toUpperCase() + RESET +  GREEN + " !" );
+        System.out.printf("%31s\n", "How can I help you ?" + RESET );
+
+
+        getGuest = g;
         menu.order();
 
+
     }
+//    public String getGuestName(){
+//        return getGuest;
+//    }
+
 }
