@@ -1,21 +1,28 @@
 package org.example.fileHandler;
 
 
+import org.example.customer.CustomerCheckDetails;
+import org.example.customer.Login;
+
 import java.io.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CusterFileHandler {
+public class CustomerFileHandler {
     public static final String YELLOW = "\u001B[33m";
     public static final String RESET = "\u001B[0m";
     public static final String GREEN = "\u001B[32m";
     private static final String cust_file = "src/main/resources/customer.csv";
 
-    public boolean member(String email, String password){
-        try(BufferedReader reader = new BufferedReader(new FileReader(cust_file))){
-            reader.readLine();
+    CustomerCheckDetails cc;
+    public Login loginUser(String email, String password) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(cust_file))) {
+            reader.readLine(); // skip header
             String line;
-            while ((line = reader.readLine()) !=null){
+            while ((line = reader.readLine()) != null) {
                 String[] log = line.split("\\|");
                 String fileFirstname = log[0];
                 String fileLastname = log[1];
@@ -23,22 +30,22 @@ public class CusterFileHandler {
                 String filePhoneNumber = log[3];
                 String filePassword = log[4];
 
-                if(fileEmail.equalsIgnoreCase(email) && filePassword.equalsIgnoreCase(password)){
+                if (fileEmail.equalsIgnoreCase(email) && filePassword.equalsIgnoreCase(password)) {
                     System.out.println("===================================");
+                    System.out.printf(GREEN + "%30s\n", "✅ Login Successful! ✅" + RESET);
+                    System.out.println("===================================");
+                    System.out.printf(GREEN + "%35s\n", "Hello " + YELLOW + fileFirstname.toUpperCase() + RESET + GREEN + "!");
+                    System.out.printf("%30s\n", "How can I help you?" + RESET);
 
-                    System.out.printf( GREEN +"%30s\n","✅Login Successful !✅"+ RESET);
-                    System.out.println("===================================");
-                    System.out.printf( GREEN + "%35s\n", "Hello " + YELLOW + fileFirstname.toUpperCase() + RESET +  GREEN + " !" );
-                    System.out.printf("%30s\n", "How can I help you ?" + RESET );
-                    return true;
+                    return new Login(fileFirstname, fileEmail);
                 }
-
             }
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
-        return false;
+        return null; // login failed
     }
+
     public boolean checkEmail(String email) {
         try (BufferedReader reader = new BufferedReader(new FileReader(cust_file))) {
             reader.readLine();

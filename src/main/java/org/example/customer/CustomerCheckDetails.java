@@ -47,5 +47,11 @@ public class CustomerCheckDetails {
     public void setOrderDetails(List<Sandwich> orderDetails) {
         this.orderDetails = orderDetails;
     }
-    
+    public void addCust(Login log){
+        logDetails.add(log);
+    }
+    public void addSandwich(Sandwich s){
+        orderDetails.add(s);
+    }
+
 }

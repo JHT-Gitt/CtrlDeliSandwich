@@ -1,6 +1,8 @@
 package org.example.screens;
 
-import org.example.fileHandler.CusterFileHandler;
+import org.example.customer.CustomerCheckDetails;
+import org.example.customer.Login;
+import org.example.fileHandler.CustomerFileHandler;
 
 import java.io.*;
 import java.util.Random;
@@ -12,9 +14,11 @@ public class Home {
     public static final String YELLOW = "\u001B[33m";
     public static final String RESET = "\u001B[0m";
     public static final String GREEN = "\u001B[32m";
-    public String getGuest = "";
-    OrderScreen menu = new OrderScreen();
-    CusterFileHandler login = new CusterFileHandler();
+
+
+    CustomerFileHandler cf = new CustomerFileHandler();
+    CustomerCheckDetails cc;
+
 
     public void display(){
         String enter;
@@ -51,25 +55,25 @@ public class Home {
         System.out.printf("%22s\n","Sandwiches");
         System.out.println("===================================");
     }
-    public void logIn(){
-
-
-        System.out.println("==============" + YELLOW + "Log-In" +RESET + "===============");
-        while(true) {
+    public void logIn() {
+        System.out.println("==============" + YELLOW + "Log-In" + RESET + "===============");
+        while (true) {
             System.out.print("Email   : ");
             String email = scanner.next();
             System.out.print("Password: ");
             String password = scanner.next();
 
-            if (login.member(email, password)) {
-                menu.order();
+            Login user = cf.loginUser(email, password);
+            if (user != null) {
+                OrderScreen menu = new OrderScreen(user);
+                menu.order(user);
                 break;
             } else {
                 System.out.println("Invalid email or password");
             }
         }
-
     }
+
     public void signUp(){
         File cust_file = new File("src/main/resources/customer.csv");
         String email;
@@ -81,7 +85,7 @@ public class Home {
         while (true) {
             System.out.print("Email: ");
             email = scanner.next();
-            if (login.checkEmail(email)) {
+            if (cf.checkEmail(email)) {
                 System.out.println("That email is already registered. Try another.");
             } else {
                 break;
@@ -101,7 +105,7 @@ public class Home {
             writer.write(newCustomer);
             System.out.println("===================================");
             System.out.printf(GREEN + "%30s\n", "✅Sign-In Successful !✅" + RESET);
-            login = new CusterFileHandler();  // RELOADS customer data
+            cf = new CustomerFileHandler();  // RELOADS customer data
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
@@ -141,14 +145,11 @@ public class Home {
         System.out.printf( GREEN + "%40s\n", "Hello " + YELLOW + g.toUpperCase() + RESET +  GREEN + " !" );
         System.out.printf("%31s\n", "How can I help you ?" + RESET );
 
-
-        getGuest = g;
-        menu.order();
+        Login guestLogin = new Login(g, "N/A");
+        OrderScreen menu = new OrderScreen(guestLogin);
+        menu.order(guestLogin);
 
 
     }
-//    public String getGuestName(){
-//        return getGuest;
-//    }
 
 }

@@ -1,18 +1,26 @@
 package org.example.screens;
 
+import org.example.customer.Login;
+import org.example.fileHandler.CustomerFileHandler;
+
 import java.util.Scanner;
 
 public class OrderScreen {
     public static final String YELLOW = "\u001B[33m";
     public static final String RESET = "\u001B[0m";
     public static final String GREEN = "\u001B[32m";
+    private final Login user;
+    private final Order om;
+    CustomerFileHandler cf = new CustomerFileHandler();
 
 
-   // Home h = new Home();
-   // private Home home;
     Scanner scanner = new Scanner(System.in);
-    Order om = new Order();
-    public void order(){
+    public OrderScreen(Login user) {
+        this.user = user;
+        this.om = new Order(user);
+    }
+
+    public void order(Login user){
 
         System.out.println("=========="+ YELLOW + "HOME SCREEN" +RESET + "==============");
         System.out.println(" 1 - New Order");
@@ -44,6 +52,7 @@ public class OrderScreen {
 
     }
     private void orderScreen() {
+
 
         System.out.println("=========="+ YELLOW + "ORDER SCREEN" +RESET + "=============");
         System.out.println(" 1 - Add Customize Sandwich");
