@@ -15,10 +15,7 @@ public class Home {
     public static final String RESET = "\u001B[0m";
     public static final String GREEN = "\u001B[32m";
 
-
     CustomerFileHandler cf = new CustomerFileHandler();
-    CustomerCheckDetails cc;
-
 
     public void display(){
         String enter;

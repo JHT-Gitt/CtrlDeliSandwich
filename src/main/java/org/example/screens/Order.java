@@ -295,24 +295,6 @@ public void lines(){
         allReceipts.add(receipt); // ⬅️ Store the receipt in the list
         Receipt.writeReceipt(receipt);
         printAllReceipts();
-       // System.out.println(receipt);
-//        String receipt = "Bread Type: " + breadType + "\n" +
-//                "Size: " + size + "\n" +
-//                "Toasted: " + isToasted + "\n" +
-//                "Meat Premium: " + meatPremium + "\n" +
-//                "Extra Meat: " + exMeat + "\n" +
-//                "Cheese Premium: " + cheesePremium + "\n" +
-//                "Extra Cheese: " + exCheese
-//                ;
-//                //sandwich.getReceipt();
-//        System.out.println(receipt);
-//
-//        try (FileWriter writer = new FileWriter("src/main/resources/receipt.csv",true)) {
-//            writer.write(receipt);
-//            System.out.println("Receipt saved to receipt.csv");
-//        } catch (IOException e) {
-//            System.out.println("Error saving receipt: " + e.getMessage());
-//        }
     }
     public void printAllReceipts() {
         System.out.println("\n========= ALL RECEIPTS =========");
