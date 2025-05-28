@@ -40,17 +40,44 @@ Extra Meat: n
 Cheese Premium: cheddar
 Extra Cheese: n
 ------------------------------
+--- RECEIPT ---
+Name: ji
+Email: jt
+Order #: 80351
+Time: 2025-05-27 21:35:36 PM
+Bread Type: Wrap
+Size: 12
+Toasted: Yes
+Meat Premium: ham
+Extra Meat: y
+Cheese Premium: american
+Extra Cheese: y
+------------------------------
 
 --- RECEIPT ---
-Name: GUEST95421
+Name: GUEST44053
 Email: N/A
-Order #: 58483
-Time: 2025-05-27 15:53:17 PM
-Bread Type: Wheat
-Size: 8
+Order #: 36635
+Time: 2025-05-27 22:12:42 PM
+Bread Type: White
+Size: 12
 Toasted: Yes
-Meat Premium: salami
-Extra Meat: n
-Cheese Premium: provolone
+Meat Premium: ham
+Extra Meat: y
+Cheese Premium: swiss
 Extra Cheese: y
+------------------------------
+
+--- RECEIPT ---
+Name: GUEST44053
+Email: N/A
+Order #: 86771
+Time: 2025-05-27 22:13:06 PM
+Bread Type: Wrap
+Size: 12
+Toasted: No
+Meat Premium: bacon
+Extra Meat: n
+Cheese Premium: swiss
+Extra Cheese: n
 ------------------------------

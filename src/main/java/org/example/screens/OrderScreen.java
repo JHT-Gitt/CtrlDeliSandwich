@@ -1,8 +1,11 @@
 package org.example.screens;
 
 import org.example.customer.Login;
+import org.example.customer.Sandwich;
 import org.example.fileHandler.CustomerFileHandler;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class OrderScreen {
@@ -69,12 +72,30 @@ public class OrderScreen {
 
                 switch (enter){
                     case 0 ->{
-                        System.out.println("Goodbye and Have a great day 👋");
-                        System.exit(0);
+                        System.out.print("Are you sure you want to cancel this order? (Y/N): ");
+                        String confirm = scanner.next().toUpperCase();
+                        if (confirm.equals("Y") || confirm.equals("YES")) {
+                            om.clearOrder();     // Clear sandwich list
+                            order(user);             // Return to "Home Screen" menu, still logged in
+                        } else {
+                            System.out.println("Returning to Order Screen...");
+                        }
                     }
-                    case 1 -> om.addSandwich();
+                    case 1 -> {
+                        om.addSandwich();
+                        orderScreen();
+                    }
+                    case 5 -> {
+                        boolean success = om.checkout();
+                        if (success) {
+                            order(user); // go back to home screen
+                        } else {
+                            orderScreen(); // stay on order screen if nothing to checkout
+                        }
+                    }
                     default -> System.out.println("Invalid input. Try again");
                 }
+                break;
             } catch (Exception e) {
                 System.out.println("Invalid input. Please enter a number.");
                 scanner.nextLine();
@@ -82,6 +103,8 @@ public class OrderScreen {
         }
 
     }
+
+
 
 
 }

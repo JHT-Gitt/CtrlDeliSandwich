@@ -11,8 +11,6 @@ import org.example.customer.Login;
 import org.example.customer.Sandwich;
 import org.example.fileHandler.Receipt;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -30,13 +28,16 @@ public class Order implements Extras {
     public String meatPremium = "";
     public String cheesePremium = "";
     public String exMeat, exCheese;
+    public String receipt;
 
     List<String> allReceipts = new ArrayList<>();
     List<Topping> meatTop = new ArrayList<>();
     List<Topping> cheeseTop = new ArrayList<>();
     Sandwich<I_Topping> sandwich = new Sandwich<>(size);
+    private List<Sandwich<?>> sandwiches = new ArrayList<>();
     private Login user;
 
+    OrderScreen os;
     public Order(Login user) {
         this.user = user;
     }
@@ -214,6 +215,8 @@ public class Order implements Extras {
 
         extraCheese();
         printReceipt();
+
+
     }
 
 public void lines(){
@@ -272,14 +275,13 @@ public void lines(){
         lines();
 
     }
-    public void printReceipt(){
+    public void printReceipt() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
         String timestamp = now.format(formatter);
         int orderNumber = new Random().nextInt(90000) + 10000;
 
-        System.out.println("\n--- RECEIPT ---");
-        String receipt = "\n--- RECEIPT ---\n" +
+       receipt = "\n--- RECEIPT ---\n" +
                 "Name: " + user.getFirstname() + "\n" +
                 "Email: " + user.getEmail() + "\n" +
                 "Order #: " + orderNumber + "\n" +
@@ -292,18 +294,80 @@ public void lines(){
                 "Cheese Premium: " + cheesePremium + "\n" +
                 "Extra Cheese: " + exCheese;
 
-        allReceipts.add(receipt); // ⬅️ Store the receipt in the list
-        Receipt.writeReceipt(receipt);
-        printAllReceipts();
+        allReceipts.add(receipt); // optional, if you want to preserve history
+
     }
+
+    //    public void printReceipt(){
+//        LocalDateTime now = LocalDateTime.now();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
+//        String timestamp = now.format(formatter);
+//        int orderNumber = new Random().nextInt(90000) + 10000;
+//
+//        System.out.println("\n--- RECEIPT ---");
+//        String receipt = "\n--- RECEIPT ---\n" +
+//                "Name: " + user.getFirstname() + "\n" +
+//                "Email: " + user.getEmail() + "\n" +
+//                "Order #: " + orderNumber + "\n" +
+//                "Time: " + timestamp + "\n" +
+//                "Bread Type: " + breadType + "\n" +
+//                "Size: " + size + "\n" +
+//                "Toasted: " + isToasted + "\n" +
+//                "Meat Premium: " + meatPremium + "\n" +
+//                "Extra Meat: " + exMeat + "\n" +
+//                "Cheese Premium: " + cheesePremium + "\n" +
+//                "Extra Cheese: " + exCheese;
+//
+//        allReceipts.add(receipt); // ⬅️ Store the receipt in the list
+//        Receipt.writeReceipt(receipt);
+//        printAllReceipts();
+//    }
     public void printAllReceipts() {
         System.out.println("\n========= ALL RECEIPTS =========");
+        for (String receipt : allReceipts) {
+            System.out.println(receipt);
+            System.out.println("--------------------------------");
+            Receipt.writeReceipt(receipt);
+        }
+
+    }
+    public boolean checkout() {
         int count = 1;
+        if (allReceipts.isEmpty()) {
+            System.out.println("⚠️ You haven't added any sandwich yet. ⚠️");
+            return false;
+        }
+
+        System.out.println("\n🧾 Your Order Summary:");
         for (String receipt : allReceipts) {
             System.out.println("Receipt #" + count++);
             System.out.println(receipt);
-            System.out.println("--------------------------------");
+            System.out.println("-----------------------------");
         }
+
+        while(true) {
+            System.out.print("📌 Confirm order?\n ✅ Y - Confirm\n N - ❌ Cancel Order\nEnter: ");
+            String input = scanner.nextLine().trim().toUpperCase();
+
+            if (input.equals("Y") || input.equals("YES")) {
+                for (String receipt : allReceipts) {
+                    Receipt.writeReceipt(receipt); // Save all receipts
+                }
+                clearOrder();
+                System.out.println("✅ Order confirmed and saved.✅");
+                return true;
+            } else if (input.equals("N") || input.equals("NO")) {
+                clearOrder();
+                System.out.println("❌ Order canceled. ❌");
+                return false;
+            }else{
+                System.out.println("❌ Invalid output. Try again ❌");
+            }
+        }
+    }
+    
+    public void clearOrder() {
+        sandwiches.clear();
     }
 
 }
