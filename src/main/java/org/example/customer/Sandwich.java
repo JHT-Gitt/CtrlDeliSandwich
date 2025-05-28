@@ -5,13 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sandwich<T extends I_Topping> {
-    private final String size;
+    private  String size;
     private String breadType;
     private String toasted; // changed from boolean
-    private String meat, cheese, regularToppings, sauce ;
-    private final List<T> toppings = new ArrayList<>();
+    private String meat, cheese ;
+    private List<T> toppings = new ArrayList<>();
+    private List<T> sauce = new ArrayList<>();
 
     public Sandwich(String size) {
+        this.size = size;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
         this.size = size;
     }
 
@@ -21,6 +30,9 @@ public class Sandwich<T extends I_Topping> {
 
     public void setToasted(String toasted) {
         this.toasted = toasted;
+    }
+    public void addSauce(T s){
+        sauce.add(s);
     }
 
     public void addTopping(T topping) {
@@ -34,7 +46,46 @@ public class Sandwich<T extends I_Topping> {
             case "12" -> 8.50;
             default -> 0;
         };
+
     }
+    public double getMeatPremium(){
+        return switch (size){
+            case "4" -> 1.00;
+            case "8" -> 2.00;
+            case "12" -> 3.00;
+            default -> 0;
+        };
+    }
+    public double getCheesePremium(){
+        return switch (size){
+            case "4" -> .75;
+            case "8" -> 1.50;
+            case "12" -> 2.25;
+            default -> 0;
+        };
+
+    }
+    public double getExtraMeat() {
+        return switch (size) {
+            case "4" -> .50;
+            case "8" -> 1.00;
+            case "12" -> 1.50;
+            default -> 0;
+        };
+    }
+    public double getExtraCheese() {
+        return switch (size) {
+            case "4" -> .30;
+            case "8" -> .60;
+            case "12" -> .90;
+            default -> 0;
+        };
+    }
+    public double totalPrice(){
+        return getBasePrice() + getMeatPremium() +
+                getCheesePremium();
+    }
+
 //
 //    public String getReceipt() {
 //        StringBuilder sb = new StringBuilder();
