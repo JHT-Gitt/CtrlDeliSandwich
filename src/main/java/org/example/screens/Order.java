@@ -111,6 +111,7 @@ public class Order implements Extras {
                 scanner.nextLine();
             }
         }
+        lines();
         while (true) {
             System.out.print(GREEN + "Do you want it toasted [Y/N] ?: " + RESET);
             String toastedInput = scanner.nextLine().trim().toLowerCase();
@@ -172,7 +173,7 @@ public class Order implements Extras {
         sandwich.addTopping(new MeatTopping(meatPremium));
 
 
-
+        lines();
         extraMeat();
         cheese();
 
@@ -212,7 +213,7 @@ public class Order implements Extras {
             }
         }
         sandwich.addTopping(new CheeseTopping(cheesePremium));
-
+        lines();
         extraCheese();
         printReceipt();
 
@@ -236,6 +237,7 @@ public void lines(){
 
             if (exMeat.equals("yes") || exMeat.equals("no") ||
                     exMeat.equals("y") || exMeat.equals("n")) {
+                lines();
                 System.out.println("Extra meat added !");
                 break;
             } else {
@@ -262,6 +264,7 @@ public void lines(){
 
             if (exCheese.equals("yes") || exCheese.equals("no") ||
                     exCheese.equals("y") || exCheese.equals("n")) {
+                lines();
                 System.out.println("Extra cheese added !");
                 break;
             } else {
@@ -346,7 +349,7 @@ public void lines(){
         }
 
         while(true) {
-            System.out.print("📌 Confirm order?\n ✅ Y - Confirm\n N - ❌ Cancel Order\nEnter: ");
+            System.out.print("📌 Confirm order?\n ✅ Y - Confirm\n ❌ N - Cancel Order\nEnter: ");
             String input = scanner.nextLine().trim().toUpperCase();
 
             if (input.equals("Y") || input.equals("YES")) {
