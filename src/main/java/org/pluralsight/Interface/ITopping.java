@@ -1,4 +1,4 @@
-package org.pluralsight.UI;
+package org.pluralsight.Interface;
 
 public interface ITopping {
     double getPrice(String size);

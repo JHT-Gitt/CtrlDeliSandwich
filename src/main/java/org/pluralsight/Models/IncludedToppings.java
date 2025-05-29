@@ -1,4 +1,6 @@
-package org.pluralsight.UI;
+package org.pluralsight.Models;
+
+import org.pluralsight.Interface.ITopping;
 
 import java.util.*;
 
@@ -8,16 +10,22 @@ public class IncludedToppings {
     public static final String GREEN = "\u001B[32m";
 
     private final Scanner scanner = new Scanner(System.in);
-    private final Sand<ITopping> sandwich;
+    private final Sandwich<ITopping> sandwich;
+    public String indent = "            ";
 
-    public IncludedToppings(Sand<ITopping> sandwich) {
+    public IncludedToppings(Sandwich<ITopping> sandwich) {
         this.sandwich = sandwich;
+    }
+    public void lines(){
+        System.out.println("===========================================");
+
     }
 
     public void freeTop() {
         List<String> veggies = Arrays.asList("Lettuce", "Peppers", "Onions", "Tomatoes", "Jalapenos", "Cucumbers", "Pickles");
 
-        System.out.println("\n🌿 " + YELLOW + "REGULAR TOPPINGS" + RESET + " 🌿");
+        System.out.println(indent + "🌿 " + YELLOW + "REGULAR TOPPINGS" + RESET + " 🌿");
+        lines();
         printOptions(veggies);
 
         List<String> selected = promptSelection(veggies);
@@ -33,7 +41,9 @@ public class IncludedToppings {
     private void selectSauces() {
         List<String> sauces = Arrays.asList("Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Island", "Vinaigrette");
 
-        System.out.println("\n🧴 " + YELLOW + "SAUCES" + RESET + " 🧴");
+        lines();
+        System.out.println(indent + "🧴 " + YELLOW + "SAUCES" + RESET + " 🧴");
+        lines();
         printOptions(sauces);
 
         List<String> selected = promptSelection(sauces);
@@ -45,8 +55,9 @@ public class IncludedToppings {
 
     private void selectSides() {
         List<String> sides = Arrays.asList("Au Jus", "Sauce");
-
-        System.out.println("\n🍟 " + YELLOW + "SIDES" + RESET + " 🍟");
+        lines();
+        System.out.println(indent + "🍟 " + YELLOW + "SIDES" + RESET + " 🍟");
+        lines();
         printOptions(sides);
 
         List<String> selected = promptSelection(sides);
@@ -58,14 +69,15 @@ public class IncludedToppings {
 
     private void printOptions(List<String> items) {
         for (int i = 0; i < items.size(); i++) {
-            System.out.printf(" %d - %s\n", i + 1, items.get(i));
+            System.out.printf(indent + " %d - %s\n", i + 1, items.get(i));
         }
     }
 
     private List<String> promptSelection(List<String> options) {
         List<String> selected = new ArrayList<>();
+        lines();
         while (true) {
-            System.out.print("Select item number (or 0 to finish): ");
+            System.out.print("Select a number (press 0 when done): ");
             if (!scanner.hasNextInt()) {
                 System.out.println("Please enter a valid number.");
                 scanner.next();
@@ -73,8 +85,7 @@ public class IncludedToppings {
             }
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
-
+            scanner.nextLine();
             if (choice == 0) break;
 
             if (choice >= 1 && choice <= options.size()) {

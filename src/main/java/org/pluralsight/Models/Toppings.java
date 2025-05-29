@@ -1,7 +1,11 @@
-package org.pluralsight.Model;
+package org.pluralsight.Models;
 
-public class Topping {
+public class Toppings {
     private String name;
+
+    public Toppings(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;
@@ -9,10 +13,5 @@ public class Topping {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Topping(String name) {
-        this.name = name;
-
     }
 }

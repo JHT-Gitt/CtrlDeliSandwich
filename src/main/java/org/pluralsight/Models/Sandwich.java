@@ -1,9 +1,11 @@
-package org.pluralsight.UI;
+package org.pluralsight.Models;
+
+import org.pluralsight.Interface.ITopping;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sand<T extends ITopping> {
+public class Sandwich<T extends ITopping> {
 
     private String size;
     private String breadType;
@@ -11,7 +13,7 @@ public class Sand<T extends ITopping> {
     private ArrayList<T> toppings;
     //private ArrayList<T> basicToppings ;
 
-    public Sand(String size) {
+    public Sandwich(String size) {
         this.size = size;
         this.toppings = new ArrayList<>();
        // this.basicToppings = new ArrayList<>();

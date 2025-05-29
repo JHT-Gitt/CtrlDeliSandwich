@@ -1,14 +1,16 @@
-package org.pluralsight.UI;
+package org.pluralsight.Models;
 
-public class Meat implements ITopping{
+import org.pluralsight.Interface.ITopping;
+
+public class Cheese implements ITopping {
     private String type;
     private boolean extra;
 
-    public Meat(String type) {
+    public Cheese(String type) {
         this(type, false);
     }
 
-    public Meat(String type, boolean extra) {
+    public Cheese(String type, boolean extra) {
         this.type = type;
         this.extra = extra;
     }
@@ -16,12 +18,12 @@ public class Meat implements ITopping{
     @Override
     public double getPrice(String size) {
         double base = switch (size) {
-            case "4" -> 1.00;
-            case "8" -> 2.00;
-            case "12" -> 3.00;
+            case "4" -> 0.75;
+            case "8" -> 1.50;
+            case "12" -> 2.25;
             default -> 0;
         };
-        return extra ? base / 2 : base;
+        return extra ? base - (base *.6) : base;
     }
 
     @Override

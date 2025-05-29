@@ -13,16 +13,17 @@ public class Home {
     public static final String YELLOW = "\u001B[33m";
     public static final String RESET = "\u001B[0m";
     public static final String GREEN = "\u001B[32m";
+    public String indent="        ";
 
     CustomerFileHandler cf = new CustomerFileHandler();
 
     public void display(){
         String enter;
         banner();
-        System.out.println(GREEN + "💥%10 member off💥" + RESET);
-        System.out.println(" L - Log-in     \n S - Sign-in");
-        System.out.println(" G - Continue as Guest \n X - Exit");
-        System.out.println("===================================");
+        System.out.println(indent + GREEN + "    💥%15 member off💥" + RESET);
+        System.out.println(indent + " L - Log-in      S - Sign-up");
+        System.out.println(indent + " G - Guest       X - Exit");
+        lines();
         while (true) {
             try {
                 System.out.print("Enter: ");
@@ -44,15 +45,16 @@ public class Home {
         }
     }
     public void banner(){
-        System.out.println("===================================");
-        System.out.printf("%22s\n","Welcome to");
-        System.out.printf("%24s\n",YELLOW +  "J's");
-        System.out.println("   🥪  🥪  CNTRL + DELI  🥪  🥪" + RESET );
-        System.out.printf("%22s\n","Sandwiches");
-        System.out.println("===================================");
+
+        lines();
+        System.out.printf("%26s\n","Welcome to");
+        System.out.printf("%28s\n",YELLOW +  "J's");
+        System.out.println("       🥪  🥪  CNTRL + DELI  🥪  🥪" + RESET );
+        System.out.printf("%26s\n","Sandwiches");
+        lines();
     }
     public void logIn() {
-        System.out.println("==============" + YELLOW + "Log-In" + RESET + "===============");
+        System.out.println("==================" + YELLOW + "Log-In" + RESET + "===================");
         while (true) {
             System.out.print("Email   : ");
             String email = scanner.next();
@@ -99,7 +101,7 @@ public class Home {
                 writer.newLine();
             }
             writer.write(newCustomer);
-            System.out.println("===================================");
+            lines();
             System.out.printf(GREEN + "%30s\n", "✅Sign-In Successful !✅" + RESET);
             cf = new CustomerFileHandler();  // RELOADS customer data
         } catch (IOException e) {
@@ -110,11 +112,11 @@ public class Home {
     }
     public void loginAfterSign(){
 
-        System.out.println("===================================");
+        lines();
         System.out.println(" H - Home ");
         System.out.println(" L - Log-in ");
         System.out.println(" E - Exit");
-        System.out.println("===================================");
+        lines();
         while(true){
             System.out.print("Enter: ");
             String enter = scanner.next().toUpperCase();
@@ -136,15 +138,19 @@ public class Home {
 
         Random r = new Random();
         int guestNum = 10000 + r.nextInt(90000);
-        System.out.println("===================================");
+        lines();
         String g = "GUEST" + guestNum;
-        System.out.printf( GREEN + "%40s\n", "Hello " + YELLOW + g.toUpperCase() + RESET +  GREEN + " !" );
-        System.out.printf("%31s\n", "How can I help you ?" + RESET );
+        System.out.printf( GREEN + "%45s\n", "Hello " + YELLOW + g.toUpperCase() + RESET +  GREEN + " !" );
+        System.out.printf("%36s\n", "How can I help you ?" + RESET );
 
         Login guestLogin = new Login(g, "N/A");
         OrderScreen menu = new OrderScreen(guestLogin);
         menu.order(guestLogin);
 
+
+    }
+    public void lines(){
+        System.out.println("===========================================");
 
     }
 

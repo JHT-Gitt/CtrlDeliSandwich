@@ -12,6 +12,8 @@ public class CustomerFileHandler {
     public static final String RESET = "\u001B[0m";
     public static final String GREEN = "\u001B[32m";
     private static final String cust_file = "src/main/resources/customer.csv";
+    public String indent1 = "                 ";
+    public String indent2 = "           ";
 
 
     public Login loginUser(String email, String password) {
@@ -28,11 +30,11 @@ public class CustomerFileHandler {
                 String filePassword = log[4];
 
                 if (fileEmail.equalsIgnoreCase(email) && filePassword.equalsIgnoreCase(password)) {
-                    System.out.println("===================================");
-                    System.out.printf(GREEN + "%30s\n", "✅ Login Successful! ✅" + RESET);
-                    System.out.println("===================================");
-                    System.out.printf(GREEN + "%35s\n", "Hello " + YELLOW + fileFirstname.toUpperCase() + RESET + GREEN + "!");
-                    System.out.printf("%30s\n", "How can I help you?" + RESET);
+                    System.out.println("===========================================");
+                    System.out.printf(GREEN + "%35s\n", "✅ Login Successful! ✅" + RESET);
+                    System.out.println("===========================================");
+                    System.out.println(indent1 + GREEN + "Hello " + YELLOW + fileFirstname.toUpperCase() + RESET + GREEN + "!");
+                    System.out.println(indent2 + "How can I help you?" + RESET);
 
                     return new Login(fileFirstname, fileEmail);
                 }

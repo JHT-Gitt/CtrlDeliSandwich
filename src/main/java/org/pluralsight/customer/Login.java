@@ -1,8 +1,5 @@
 package org.pluralsight.customer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Login {
 
     private String firstname;
@@ -10,7 +7,6 @@ public class Login {
     private String email;
     private String phoneNumber;
     private String password;
-    private List<Sandwich> sandwich;
     private boolean isGuest;
 
     public Login(String firstname, String lastname, String email, String phoneNumber, String password) {
@@ -24,12 +20,11 @@ public class Login {
     public Login(String firstname, String email) {
         this.firstname = firstname;
         this.email = email;
-        this.sandwich = new ArrayList<>();
         this.isGuest = true;
     }
 
     public boolean isGuest() {
-        return isGuest;
+        return email.equals("N/A");
     }
 
     public void setGuest(boolean guest) {
@@ -76,11 +71,5 @@ public class Login {
         this.password = password;
     }
 
-    public List<Sandwich> getOrderDetails() {
-        return sandwich;
-    }
 
-    public void addSandwich(Sandwich order) {
-        sandwich.add(order);
-    }
 }

@@ -1,6 +1,8 @@
-package org.pluralsight.UI;
+package org.pluralsight.Models;
 
-public class BasicTopping implements ITopping{
+import org.pluralsight.Interface.ITopping;
+
+public class BasicTopping implements ITopping {
     private String name;
 
     public BasicTopping(String name) {
