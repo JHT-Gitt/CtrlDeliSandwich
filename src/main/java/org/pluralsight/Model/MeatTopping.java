@@ -1,6 +1,6 @@
-package org.example.Model;
+package org.pluralsight.Model;
 
-import org.example.Interface.I_Topping;
+import org.pluralsight.Interface.I_Topping;
 
 public class MeatTopping implements I_Topping {
     private String type;

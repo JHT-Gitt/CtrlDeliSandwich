@@ -1,83 +1,32 @@
 
---- RECEIPT ---
+-----------
 Name: ji
 Email: jt
-Order #: 30807
-Time: 2025-05-27 15:38:50 PM
-Bread Type: White
-Size: 4
-Toasted: Yes
-Meat Premium: ham
-Extra Meat: y
-Cheese Premium: american
-Extra Cheese: y
-------------------------------
-
---- RECEIPT ---
-Name: ji
-Email: jt
-Order #: 13441
-Time: 2025-05-27 15:51:59 PM
-Bread Type: Wheat
+Order #: 15075
+Time: 2025-05-28 18:08:15 PM
+Bread Type: WHITE
 Size: 8
-Toasted: Yes
-Meat Premium: ham
-Extra Meat: y
-Cheese Premium: swiss
-Extra Cheese: y
+Toasted: YES
+Meat Premium: HAM
+Extra Meat: NO
+Cheese Premium: SWISS
+Extra Cheese: NO
+
+Total Price: 10.5
 ------------------------------
 
---- RECEIPT ---
+-----------
 Name: ji
 Email: jt
-Order #: 61397
-Time: 2025-05-27 15:52:20 PM
-Bread Type: Wrap
-Size: 12
-Toasted: No
-Meat Premium: steak
-Extra Meat: n
-Cheese Premium: cheddar
-Extra Cheese: n
-------------------------------
---- RECEIPT ---
-Name: ji
-Email: jt
-Order #: 80351
-Time: 2025-05-27 21:35:36 PM
-Bread Type: Wrap
-Size: 12
-Toasted: Yes
-Meat Premium: ham
-Extra Meat: y
-Cheese Premium: american
-Extra Cheese: y
-------------------------------
+Order #: 70895
+Time: 2025-05-28 18:08:44 PM
+Bread Type: WHITE
+Size: 4
+Toasted: NO
+Meat Premium: BACON
+Extra Meat: NO
+Cheese Premium: AMERICAN
+Extra Cheese: NO
 
---- RECEIPT ---
-Name: GUEST44053
-Email: N/A
-Order #: 36635
-Time: 2025-05-27 22:12:42 PM
-Bread Type: White
-Size: 12
-Toasted: Yes
-Meat Premium: ham
-Extra Meat: y
-Cheese Premium: swiss
-Extra Cheese: y
-------------------------------
-
---- RECEIPT ---
-Name: GUEST44053
-Email: N/A
-Order #: 86771
-Time: 2025-05-27 22:13:06 PM
-Bread Type: Wrap
-Size: 12
-Toasted: No
-Meat Premium: bacon
-Extra Meat: n
-Cheese Premium: swiss
-Extra Cheese: n
+Total Price: 7.25
 ------------------------------

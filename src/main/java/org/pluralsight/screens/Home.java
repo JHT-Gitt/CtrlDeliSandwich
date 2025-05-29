@@ -1,8 +1,7 @@
-package org.example.screens;
+package org.pluralsight.screens;
 
-import org.example.customer.CustomerCheckDetails;
-import org.example.customer.Login;
-import org.example.fileHandler.CustomerFileHandler;
+import org.pluralsight.customer.Login;
+import org.pluralsight.fileHandler.CustomerFileHandler;
 
 import java.io.*;
 import java.util.Random;

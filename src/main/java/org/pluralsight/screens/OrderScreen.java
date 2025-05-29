@@ -1,11 +1,10 @@
-package org.example.screens;
+package org.pluralsight.screens;
 
-import org.example.customer.Login;
-import org.example.customer.Sandwich;
-import org.example.fileHandler.CustomerFileHandler;
+import org.pluralsight.Model.Order;
+import org.pluralsight.UI.Orders;
+import org.pluralsight.customer.Login;
+import org.pluralsight.fileHandler.CustomerFileHandler;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class OrderScreen {
@@ -14,6 +13,7 @@ public class OrderScreen {
     public static final String GREEN = "\u001B[32m";
     private final Login user;
     private final Order om;
+    private final Orders os;
     CustomerFileHandler cf = new CustomerFileHandler();
 
 
@@ -21,6 +21,7 @@ public class OrderScreen {
     public OrderScreen(Login user) {
         this.user = user;
         this.om = new Order(user);
+        this.os = new Orders(user);
     }
 
     public void order(Login user){
@@ -82,6 +83,7 @@ public class OrderScreen {
                         }
                     }
                     case 1 -> {
+                        os.addSandwich();
                         om.addSandwich();
                         orderScreen();
                     }

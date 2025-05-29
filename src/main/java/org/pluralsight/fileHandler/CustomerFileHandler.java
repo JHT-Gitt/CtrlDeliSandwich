@@ -1,14 +1,11 @@
-package org.example.fileHandler;
+package org.pluralsight.fileHandler;
 
 
-import org.example.customer.CustomerCheckDetails;
-import org.example.customer.Login;
+import org.pluralsight.customer.Login;
 
 import java.io.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CustomerFileHandler {
     public static final String YELLOW = "\u001B[33m";
@@ -16,7 +13,7 @@ public class CustomerFileHandler {
     public static final String GREEN = "\u001B[32m";
     private static final String cust_file = "src/main/resources/customer.csv";
 
-    CustomerCheckDetails cc;
+
     public Login loginUser(String email, String password) {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(cust_file))) {

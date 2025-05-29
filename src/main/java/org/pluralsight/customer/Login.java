@@ -1,4 +1,4 @@
-package org.example.customer;
+package org.pluralsight.customer;
 
 import java.util.ArrayList;
 import java.util.List;

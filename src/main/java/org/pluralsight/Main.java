@@ -1,8 +1,7 @@
-package org.example;
+package org.pluralsight;
 
-import org.example.screens.Home;
-
-import java.util.Scanner;
+import org.pluralsight.UI.Orders;
+import org.pluralsight.screens.Home;
 
 public class Main {
 

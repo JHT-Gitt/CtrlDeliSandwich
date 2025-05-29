@@ -1,4 +1,4 @@
-package org.example.Model;
+package org.pluralsight.Model;
 
 public class Topping {
     private String name;

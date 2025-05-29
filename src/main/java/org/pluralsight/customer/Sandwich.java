@@ -1,5 +1,5 @@
-package org.example.customer;
-import org.example.Interface.I_Topping;
+package org.pluralsight.customer;
+import org.pluralsight.Interface.I_Topping;
 
 import java.util.ArrayList;
 import java.util.List;

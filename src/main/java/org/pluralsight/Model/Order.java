@@ -1,15 +1,13 @@
-package org.example.screens;
+package org.pluralsight.Model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
-import org.example.Interface.Extras;
-import org.example.Interface.I_Topping;
-import org.example.Model.CheeseTopping;
-import org.example.Model.MeatTopping;
-import org.example.Model.Topping;
-import org.example.customer.Login;
-import org.example.customer.Sandwich;
-import org.example.fileHandler.Receipt;
+import org.pluralsight.Interface.Extras;
+import org.pluralsight.Interface.I_Topping;
+import org.pluralsight.customer.Login;
+import org.pluralsight.customer.Sandwich;
+import org.pluralsight.fileHandler.Receipt;
+import org.pluralsight.screens.OrderScreen;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -30,6 +28,7 @@ public class Order implements Extras {
     public String exMeat, exCheese;
     public String receipt;
     public double total = 0;
+    public double grandTotal = 0;
 
     List<String> allReceipts = new ArrayList<>();
     List<Topping> meatTop = new ArrayList<>();
@@ -113,9 +112,8 @@ public class Order implements Extras {
             }
         }
         lines();
-
         sandwich.setSize(size);
-        System.out.println(sandwich.getBasePrice());
+        //System.out.println(sandwich.getBasePrice());
 
         while (true) {
             System.out.print(GREEN + "Do you want it toasted [Y/N] ?: " + RESET);
@@ -177,7 +175,7 @@ public class Order implements Extras {
         sandwich.addTopping(new MeatTopping(meatPremium));
         
         lines();
-        System.out.println(sandwich.getMeatPremium());
+        //System.out.println(sandwich.getMeatPremium());
         extraMeat();
         cheese();
 
@@ -218,7 +216,7 @@ public class Order implements Extras {
         }
         sandwich.addTopping(new CheeseTopping(cheesePremium));
         lines();
-        System.out.println(sandwich.getCheesePremium());
+        //System.out.println(sandwich.getCheesePremium());
         extraCheese();
         printReceipt();
 
@@ -246,7 +244,7 @@ public void lines(){
                 total = sandwich.getExtraMeat();
                 System.out.println("Extra meat added !");
                 exMeat = "YES";
-                System.out.println(total);
+                //System.out.println(total);
                 break;
             }else if(exMeat.equals("n") || exMeat.equals("no")){
                 exMeat = "NO";
@@ -257,9 +255,9 @@ public void lines(){
 
         }
 
-        if (exMeat.equals("yes") || exMeat.equals("y")) {
-            sandwich.addTopping(new MeatTopping(meatPremium, true));
-        }
+//        if (exMeat.equals("yes") || exMeat.equals("y")) {
+//            sandwich.addTopping(new MeatTopping(meatPremium, true));
+//        }
         lines();
 
     }
@@ -281,7 +279,7 @@ public void lines(){
                 total = sandwich.getExtraCheese() ;
                 System.out.println("Extra cheese added !");
                  exCheese = "YES";
-                System.out.println(total);
+                //System.out.println(total);
                 break;
 
             }else if(exCheese.equals("n") || exCheese.equals("no")){
@@ -292,9 +290,9 @@ public void lines(){
             }
         }
 
-        if (exCheese.equals("yes") || exCheese.equals("y")) {
-            sandwich.addTopping(new CheeseTopping(cheesePremium, true));
-        }
+//        if (exCheese.equals("yes") || exCheese.equals("y")) {
+//            sandwich.addTopping(new CheeseTopping(cheesePremium, true));
+//        }
         lines();
 
 
@@ -304,6 +302,7 @@ public void lines(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
         String timestamp = now.format(formatter);
         int orderNumber = new Random().nextInt(90000) + 10000;
+        double totalPrice = total + sandwich.totalPrice();
 
        receipt = "\n-----------\n" +
                 "Name: " + user.getFirstname() + "\n" +
@@ -317,46 +316,21 @@ public void lines(){
                 "Extra Meat: " + exMeat.toUpperCase() + "\n" +
                 "Cheese Premium: " + cheesePremium.toUpperCase() + "\n" +
                 "Extra Cheese: " + exCheese.toUpperCase() + "\n\n"     +
-
-                 "Total Price: " + (sandwich.totalPrice() + total)
+                 "Total Price: " + totalPrice
        ;
       allReceipts.add(receipt); // optional, if you want to preserve history
-
+        grandTotal += totalPrice;
     }
 
-    //    public void printReceipt(){
-//        LocalDateTime now = LocalDateTime.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
-//        String timestamp = now.format(formatter);
-//        int orderNumber = new Random().nextInt(90000) + 10000;
+//    public void printAllReceipts() {
+//        System.out.println("\n========= ALL RECEIPTS =========");
+//        for (String receipt : allReceipts) {
+//            System.out.println(receipt);
+//            System.out.println("--------------------------------");
+//            Receipt.writeReceipt(receipt);
+//        }
 //
-//        System.out.println("\n--- RECEIPT ---");
-//        String receipt = "\n--- RECEIPT ---\n" +
-//                "Name: " + user.getFirstname() + "\n" +
-//                "Email: " + user.getEmail() + "\n" +
-//                "Order #: " + orderNumber + "\n" +
-//                "Time: " + timestamp + "\n" +
-//                "Bread Type: " + breadType + "\n" +
-//                "Size: " + size + "\n" +
-//                "Toasted: " + isToasted + "\n" +
-//                "Meat Premium: " + meatPremium + "\n" +
-//                "Extra Meat: " + exMeat + "\n" +
-//                "Cheese Premium: " + cheesePremium + "\n" +
-//                "Extra Cheese: " + exCheese;
-//
-//        allReceipts.add(receipt); // ⬅️ Store the receipt in the list
-//        Receipt.writeReceipt(receipt);
-//        printAllReceipts();
 //    }
-    public void printAllReceipts() {
-        System.out.println("\n========= ALL RECEIPTS =========");
-        for (String receipt : allReceipts) {
-            System.out.println(receipt);
-            System.out.println("--------------------------------");
-            Receipt.writeReceipt(receipt);
-        }
-
-    }
     public boolean checkout() {
         int count = 1;
         if (allReceipts.isEmpty()) {
@@ -370,9 +344,10 @@ public void lines(){
             System.out.println(receipt);
             System.out.println("-----------------------------");
         }
+        System.out.println(" 💵 Grand Total: " + grandTotal);
 
         while(true) {
-            System.out.print("📌 Confirm order?\n ✅ Y - Confirm\n ❌ N - Cancel Order\nEnter: ");
+            System.out.print("\n📌 Confirm order?\n ✅ Y - Confirm\n ❌ N - Cancel Order\nEnter: ");
             String input = scanner.nextLine().trim().toUpperCase();
 
             if (input.equals("Y") || input.equals("YES")) {
@@ -394,6 +369,10 @@ public void lines(){
     
     public void clearOrder() {
         sandwiches.clear();
+        allReceipts.clear();
+        total = 0;
+        receipt = "";
+        grandTotal = 0;
     }
 
 }
