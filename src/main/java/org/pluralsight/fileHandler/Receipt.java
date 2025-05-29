@@ -6,11 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Receipt {
-    private static final String FILE_PATH = "src/main/resources/receipt.csv";
+    private static final String file = "src/main/resources/receipt.csv";
 
 
     public static void writeReceipt(String receipt) {
-        try (FileWriter writer = new FileWriter(FILE_PATH, true)) { // `true` = append mode
+        try (FileWriter writer = new FileWriter(file, true)) { // `true` = append mode
             writer.write(receipt);
             writer.write("\n------------------------------\n");
         } catch (IOException e) {

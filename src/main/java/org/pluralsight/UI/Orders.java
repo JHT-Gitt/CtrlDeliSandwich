@@ -2,8 +2,6 @@ package org.pluralsight.UI;
 
 import org.pluralsight.customer.Login;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Orders {
@@ -21,23 +19,29 @@ public class Orders {
     public String cheesePremium = "";
     public String exMeat, exCheese;
     public double grandTotal = 0;
-    //public String receipt;
+    public String receipts;
     public StringBuilder receipt;
+    public String isExtraM = "";
+    public String isExtraC = "";
 
     private Login user;
+    private final List<String> drinksOrdered = new ArrayList<>();
+    private final List<String> chipsOrdered = new ArrayList<>();
+    private double drinksTotal = 0;
+    private double chipsTotal = 0;
 
     private final List<Sand<ITopping>> sandwichOrders = new ArrayList<>();
-    Sand<ITopping> sandwich = new Sand<>(size);
     List<Toppings> premiumMeat = new ArrayList<>();
     List<Toppings> premiumCheese = new ArrayList<>();
     List<String> allReceipts = new ArrayList<>();
-    IncludedToppings it = new IncludedToppings();
+   // IncludedToppings it = new IncludedToppings(sandwich);
 
     public Orders(Login user){
         this.user = user;
     }
 
     public void addSandwich(){
+        Sand<ITopping> sandwich = new Sand<>(size);
         int enter;
         lines();
         System.out.println("NEW");
@@ -70,10 +74,10 @@ public class Orders {
             }
         }
         sandwich.setBreadType(breadType);
-        breadSize();
+        breadSize(sandwich);
     }
 
-    public void breadSize(){
+    public void breadSize(Sand<ITopping> sandwich){
         double s = 5.50;
         double m = 7.00;
         double l = 8.50;
@@ -108,9 +112,9 @@ public class Orders {
         lines();
         sandwich.setSize(size);
 
-        meat();
+        meat(sandwich);
     }
-    public void meat(){
+    public void meat(Sand<ITopping> sandwich){
         premiumMeat.clear();
         premiumMeat.add(new Toppings("Steak"));
         premiumMeat.add(new Toppings("Ham"));
@@ -160,9 +164,10 @@ public class Orders {
                 System.out.println("Invalid input. Please enter 'yes' or 'no'.");
             }
         }
-        cheese();
+        cheese(sandwich);
     }
-    public void cheese(){
+    public void cheese(Sand<ITopping> sandwich){
+        IncludedToppings it = new IncludedToppings(sandwich);
         premiumCheese.clear();
         premiumCheese.add(new Toppings("American"));
         premiumCheese.add(new Toppings("Provolone"));
@@ -212,7 +217,6 @@ public class Orders {
         }
 
         it.freeTop();
-        //free();
 
         while (true) {
             System.out.print(GREEN + "Do you want it toasted [Y/N] ?: " + RESET);
@@ -231,124 +235,162 @@ public class Orders {
 
         sandwich.setToasted(isToasted);
         sandwichOrders.add(sandwich);
-        System.out.println("Sandwich Added!\n");
-        //printReceipt();
-        printReceipts();
-
-    }
-    public void free(){
-
-        String[] regularToppings = {"lettuce", "peppers", "onions", "tomatoes", "jalapeños", "cucumbers", "pickles"};
-        System.out.println("\nChoose regular toppings (enter numbers separated by commas):");
-        for (int i = 0; i < regularToppings.length; i++) {
-            System.out.println((i + 1) + ". " + regularToppings[i]);
-        }
-        System.out.print("Your choices: ");
-        String[] toppingChoices = scanner.nextLine().split(",");
-        List<String> selectedToppings = Arrays.stream(toppingChoices)
-                .map(String::trim)
-                .filter(choice -> choice.matches("\\d+"))
-                .map(Integer::parseInt)
-                .filter(i -> i >= 1 && i <= regularToppings.length)
-                .map(i -> regularToppings[i - 1])
-                .distinct()
-                .toList();
-
-        for (String topping : selectedToppings) {
-            sandwich.addTopping(new BasicTopping(topping));
-        }
-
-// Sauces Selection
-        String[] sauces = {"mayo", "mustard", "ketchup", "ranch", "thousand islands", "vinaigrette"};
-        System.out.println("\nChoose sauces (enter numbers separated by commas):");
-        for (int i = 0; i < sauces.length; i++) {
-            System.out.println((i + 1) + ". " + sauces[i]);
-        }
-        System.out.print("Your choices: ");
-        String[] sauceChoices = scanner.nextLine().split(",");
-        List<String> selectedSauces = Arrays.stream(sauceChoices)
-                .map(String::trim)
-                .filter(choice -> choice.matches("\\d+"))
-                .map(Integer::parseInt)
-                .filter(i -> i >= 1 && i <= sauces.length)
-                .map(i -> sauces[i - 1])
-                .distinct()
-                .toList();
-
-        for (String sauce : selectedSauces) {
-            sandwich.addTopping(new BasicTopping(sauce));
-        }
-
-// Sides Selection
-        String[] sides = {"au jus", "sauce"};
-        System.out.println("\nChoose sides (enter numbers separated by commas):");
-        for (int i = 0; i < sides.length; i++) {
-            System.out.println((i + 1) + ". " + sides[i]);
-        }
-        System.out.print("Your choices: ");
-        String[] sideChoices = scanner.nextLine().split(",");
-        List<String> selectedSides = Arrays.stream(sideChoices)
-                .map(String::trim)
-                .filter(choice -> choice.matches("\\d+"))
-                .map(Integer::parseInt)
-                .filter(i -> i >= 1 && i <= sides.length)
-                .map(i -> sides[i - 1])
-                .distinct()
-                .toList();
-
-        for (String side : selectedSides) {
-            sandwich.addTopping(new BasicTopping(side));
-        }
+        System.out.println(GREEN + "Sandwich added!" + RESET);
 
     }
 
     public void lines(){
         System.out.println("===========================================");
     }
-    public void printReceipts(){
-        double grandTotal = 0;
-        StringBuilder receipt = new StringBuilder("--- FULL RECEIPT ---\n");
-        int count =1;
-        for(Sand<ITopping> s : sandwichOrders){
-            receipt.append("Sandwich #").append(count++).append(":\n");
-            receipt.append(sandwich.getReceipt()).append("\n");
-            grandTotal += sandwich.getTotalPrice();
+    public void printReceipts() {
+        double sandwichesTotal = 0;
+        StringBuilder receipt = new StringBuilder("--- FULL ORDER RECEIPT ---\n");
+
+        int count = 1;
+        for (Sand<ITopping> s : sandwichOrders) {
+            receipt.append("\nSandwich #").append(count++).append(":\n");
+            receipt.append(s.getReceipt());
+            sandwichesTotal += s.getTotalPrice();
         }
-        receipt.append("GRAND TOTAL: $").append(String.format("%.2f", grandTotal)).append("\n");
+
+        if (!drinksOrdered.isEmpty()) {
+            receipt.append("\n🥤 Drinks:\n");
+            for (String d : drinksOrdered) {
+                receipt.append("  - ").append(d).append("\n");
+            }
+            receipt.append("Drinks Total: $").append(String.format("%.2f", drinksTotal)).append("\n");
+        }
+
+        if (!chipsOrdered.isEmpty()) {
+            receipt.append("\n🍟 Chips:\n");
+            for (String c : chipsOrdered) {
+                receipt.append("  - ").append(c).append("\n");
+            }
+            receipt.append("Chips Total: $").append(String.format("%.2f", chipsTotal)).append("\n");
+        }
+
+        double grandTotal = sandwichesTotal + drinksTotal + chipsTotal;
+        receipt.append("\n").append(YELLOW).append("GRAND TOTAL: $")
+                .append(String.format("%.2f", grandTotal))
+                .append(RESET).append("\n");
 
         System.out.println(receipt);
-
     }
-//    public void printReceipt(){
-//        LocalDateTime now = LocalDateTime.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
-//        String timestamp = now.format(formatter);
-//        int orderNumber = new Random().nextInt(90000) + 10000;
-//        receipt = "\n-----------\n" +
-//                "Name: " + user.getFirstname() + "\n" +
-//                "Email: " + user.getEmail() + "\n" +
-//                "Order #: " + orderNumber + "\n" +
-//                "Time: " + timestamp + "\n" +
-//                "Size: " + size + "\n" +
-//                "Toasted: " + isToasted + "\n" +
-//                "Meat Premium: " + meatPremium.toUpperCase() + "\n" +
-//                "Extra Meat: " + exMeat.toUpperCase() + "\n" +
-//                "Cheese Premium: " + cheesePremium.toUpperCase() + "\n" +
-//                "Extra Cheese: " + exCheese.toUpperCase() + "\n\n"     +
-//                "Total Price: " + sandwich.getTotalPrice()
-//
-//
-//        ;
-//        System.out.println(receipt);
-//    }
+
+public void addDrinks() {
+    List<String> drinks = Arrays.asList("Coke", "Sprite", "Fanta", "Pepsi");
+    Map<String, Double> prices = Map.of("S", 2.00, "M", 2.50, "L", 3.00);
+
+    System.out.println("\n🥤 Available Drinks:");
+    for (int i = 0; i < drinks.size(); i++) {
+        System.out.printf(" %d - %s\n", i + 1, drinks.get(i));
+    }
+
+    while (true) {
+        System.out.print("Enter drink number (0 to stop): ");
+        int choice = getIntInput();
+        if (choice == 0) break;
+
+        if (choice >= 1 && choice <= drinks.size()) {
+            String drink = drinks.get(choice - 1);
+            System.out.print("Select size (S/M/L): ");
+            String size = scanner.nextLine().trim().toUpperCase();
+
+            if (prices.containsKey(size)) {
+                drinksOrdered.add(drink + " (" + size + ")");
+                drinksTotal += prices.get(size);
+                System.out.println(GREEN + drink + " " + size + " added. $" + prices.get(size) + RESET);
+            } else {
+                System.out.println("Invalid size.");
+            }
+        } else {
+            System.out.println("Invalid drink number.");
+        }
+    }
+}
+
+    public void addChips() {
+        List<String> chips = Arrays.asList("Pringles", "Doritos", "Fritos", "Tostitos", "Cheetos");
+        double chipPrice = 1.50;
+
+        System.out.println("\n🍟 Available Chips ($1.50 each):");
+        for (int i = 0; i < chips.size(); i++) {
+            System.out.printf(" %d - %s\n", i + 1, chips.get(i));
+        }
+
+        while (true) {
+            System.out.print("Enter chip number (0 to stop): ");
+            int choice = getIntInput();
+            if (choice == 0) break;
+
+            if (choice >= 1 && choice <= chips.size()) {
+                String chip = chips.get(choice - 1);
+                chipsOrdered.add(chip);
+                chipsTotal += chipPrice;
+                System.out.println(GREEN + chip + " added. $" + chipPrice + RESET);
+            } else {
+                System.out.println("Invalid chip number.");
+            }
+        }
+    }
+    private int getIntInput() {
+        while (!scanner.hasNextInt()) {
+            System.out.print("Enter a number: ");
+            scanner.next();
+        }
+        int value = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+        return value;
+    }
+
+    public void clearOrder() {
+        sandwichOrders.clear();
+        allReceipts.clear();
+        receipt = new StringBuilder();
+        grandTotal = 0;
+        drinksOrdered.clear();
+        chipsOrdered.clear();
+        drinksTotal = 0;
+        chipsTotal = 0;
+    }
 
 
+    public boolean isOrderEmpty() {
+        return sandwichOrders.isEmpty() && drinksOrdered.isEmpty() && chipsOrdered.isEmpty();
+    }
 
+    public String buildReceipt() {
+        double sandwichesTotal = 0;
+        StringBuilder receipt = new StringBuilder("--- FULL ORDER RECEIPT ---\n");
 
+        int count = 1;
+        for (Sand<ITopping> s : sandwichOrders) {
+            receipt.append("\nSandwich #").append(count++).append(":\n");
+            receipt.append(s.getReceipt());
+            sandwichesTotal += s.getTotalPrice();
+        }
 
+        if (!drinksOrdered.isEmpty()) {
+            receipt.append("\n🥤 Drinks:\n");
+            for (String d : drinksOrdered) {
+                receipt.append("  - ").append(d).append("\n");
+            }
+            receipt.append("Drinks Total: $").append(String.format("%.2f", drinksTotal)).append("\n");
+        }
 
+        if (!chipsOrdered.isEmpty()) {
+            receipt.append("\n🍟 Chips:\n");
+            for (String c : chipsOrdered) {
+                receipt.append("  - ").append(c).append("\n");
+            }
+            receipt.append("Chips Total: $").append(String.format("%.2f", chipsTotal)).append("\n");
+        }
 
+        double grandTotal = sandwichesTotal + drinksTotal + chipsTotal;
+        receipt.append("GRAND TOTAL: $").append(String.format("%.2f", grandTotal));
 
+        return receipt.toString();
+    }
 
 
 }

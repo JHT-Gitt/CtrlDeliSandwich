@@ -9,11 +9,19 @@ public class Sand<T extends ITopping> {
     private String breadType;
     private String toasted;
     private ArrayList<T> toppings;
+    //private ArrayList<T> basicToppings ;
 
     public Sand(String size) {
         this.size = size;
         this.toppings = new ArrayList<>();
+       // this.basicToppings = new ArrayList<>();
     }
+//    public void addBasicToppings(T bt){
+//        basicToppings.add(bt);
+//    }
+//    public List<T> getBasicToppings(){
+//        return basicToppings;
+//    }
 
     public void setSize(String size) {
         this.size = size;
@@ -44,6 +52,13 @@ public class Sand<T extends ITopping> {
         }
         return total;
     }
+    public void s(){
+        for(T t : toppings){
+            if(t instanceof BasicTopping) {
+                System.out.println(t.getDescription());
+            }
+        }
+    }
 //
 //    public String getReceipt() {
 //        StringBuilder sb = new StringBuilder();
@@ -70,16 +85,16 @@ public class Sand<T extends ITopping> {
 //                }
 //                ;
 //    }
-public String getReceipt() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("Bread Type: ").append(breadType).append("\n");
-    sb.append("Sandwich Size: ").append(size).append("\" - $").append(getBasePrice()).append("\n");
-    sb.append("Toasted: ").append(toasted).append("\n");
-
-
-    List<ITopping> premiumToppings = new ArrayList<>();
-    List<ITopping> basicToppings = new ArrayList<>();
-
+//public String getReceipt() {
+//    StringBuilder sb = new StringBuilder();
+//    sb.append("Bread Type: ").append(breadType).append("\n");
+//    sb.append("Sandwich Size: ").append(size).append("\" - $").append(getBasePrice()).append("\n");
+//    sb.append("Toasted: ").append(toasted).append("\n");
+//
+//
+//    List<ITopping> premiumToppings = new ArrayList<>();
+//    List<ITopping> basicToppings = new ArrayList<>();
+//
 //    for (T topping : toppings) {
 //        if (topping instanceof Meat || topping instanceof Cheese) {
 //            premiumToppings.add(topping);
@@ -87,16 +102,58 @@ public String getReceipt() {
 //            basicToppings.add(topping);
 //        }
 //    }
-    for (ITopping topping : toppings) {
-        if (topping.getPrice(size) > 0.0) {
+//
+//
+//    if (!premiumToppings.isEmpty()) {
+//        sb.append("Premium Toppings:\n");
+//        for (ITopping topping : premiumToppings) {
+//            sb.append("  - ").append(topping.getDescription())
+//                    .append(": $").append(String.format("%.2f", topping.getPrice(size))).append("\n");
+//        }
+//    }
+//
+//    sb.append("Regular Toppings:\n");
+//    for(ITopping t : toppings){
+//        if(t instanceof BasicTopping){
+//            System.out.println(t.getDescription());
+//        }
+//    }
+//
+////    s();
+////    if (!basicToppings.isEmpty()) {
+////        sb.append("Regular Toppings:\n");
+////        s();
+////        for (ITopping topping : basicToppings) {
+////            sb.append("  - ").append(topping.getDescription()).append("\n");
+////        }
+////    }
+//
+//    sb.append("--------------------------\n");
+//    sb.append("Total: $").append(String.format("%.2f", getTotalPrice())).append("\n");
+//    return sb.toString();
+//}
+public String getReceipt() {
+    StringBuilder sb = new StringBuilder();
+
+    sb.append("\n--- SANDWICH RECEIPT ---\n");
+    sb.append("Bread Type: ").append(breadType).append("\n");
+    sb.append("Size: ").append(size).append("\" - $")
+            .append(String.format("%.2f", getBasePrice())).append("\n");
+    sb.append("Toasted: ").append(toasted).append("\n");
+
+    List<ITopping> premiumToppings = new ArrayList<>();
+    List<ITopping> basicToppings = new ArrayList<>();
+
+    for (T topping : toppings) {
+        if (topping instanceof Meat || topping instanceof Cheese) {
             premiumToppings.add(topping);
-        } else {
+        } else if (topping instanceof BasicTopping) {
             basicToppings.add(topping);
         }
     }
 
     if (!premiumToppings.isEmpty()) {
-        sb.append("Premium Toppings:\n");
+        sb.append("\nPremium Toppings:\n");
         for (ITopping topping : premiumToppings) {
             sb.append("  - ").append(topping.getDescription())
                     .append(": $").append(String.format("%.2f", topping.getPrice(size))).append("\n");
@@ -104,16 +161,20 @@ public String getReceipt() {
     }
 
     if (!basicToppings.isEmpty()) {
-        sb.append("Regular Toppings:\n");
+        sb.append("\nRegular Toppings:\n");
         for (ITopping topping : basicToppings) {
             sb.append("  - ").append(topping.getDescription()).append("\n");
         }
     }
 
+    sb.append("\nSandwich Total: $").append(String.format("%.2f", getTotalPrice())).append("\n");
     sb.append("--------------------------\n");
-    sb.append("Total: $").append(String.format("%.2f", getTotalPrice())).append("\n");
+
     return sb.toString();
 }
+
+
+
 
 
 }

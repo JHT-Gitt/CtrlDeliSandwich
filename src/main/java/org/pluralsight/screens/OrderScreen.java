@@ -4,6 +4,7 @@ import org.pluralsight.Model.Order;
 import org.pluralsight.UI.Orders;
 import org.pluralsight.customer.Login;
 import org.pluralsight.fileHandler.CustomerFileHandler;
+import org.pluralsight.fileHandler.Receipt;
 
 import java.util.Scanner;
 
@@ -76,23 +77,71 @@ public class OrderScreen {
                         System.out.print("Are you sure you want to cancel this order? (Y/N): ");
                         String confirm = scanner.next().toUpperCase();
                         if (confirm.equals("Y") || confirm.equals("YES")) {
-                            om.clearOrder();     // Clear sandwich list
-                            order(user);             // Return to "Home Screen" menu, still logged in
+                            os.clearOrder();  // <--- this clears everything
+                            System.out.println("Order cancelled.");
+                            order(user);      // back to Home Screen
                         } else {
                             System.out.println("Returning to Order Screen...");
+                            orderScreen();
                         }
+//                        System.out.print("Are you sure you want to cancel this order? (Y/N): ");
+//                        String confirm = scanner.next().toUpperCase();
+//                        if (confirm.equals("Y") || confirm.equals("YES")) {
+//                            order(user);
+//                        } else {
+//                            System.out.println("Returning to Order Screen...");
+//                        }
                     }
                     case 1 -> {
                         os.addSandwich();
-                        om.addSandwich();
+                        orderScreen();
+                    }
+                    case 2 -> {
+                        os.addDrinks();
+                        orderScreen();
+                    }
+                    case 3 -> {
+                        os.addChips();
+                        orderScreen();
+                    }
+                    case 4 -> {
+                        System.out.println("Feature not Added yet");
                         orderScreen();
                     }
                     case 5 -> {
-                        boolean success = om.checkout();
-                        if (success) {
-                            order(user); // go back to home screen
-                        } else {
-                            orderScreen(); // stay on order screen if nothing to checkout
+                        if (os.isOrderEmpty()) {
+                            System.out.println("Your order is empty. Please add sandwiches, drinks, or chips before checking out.");                            orderScreen();
+                            return;
+                        }
+
+                        os.printReceipts();
+
+                        while (true) {
+                            System.out.print("\nConfirm order? (Y to Confirm / C to Cancel / R to Return): ");
+                            String input = scanner.next().trim().toUpperCase();
+
+                            switch (input) {
+                                case "Y", "YES" -> {
+                                    String fullReceipt = os.buildReceipt(); // You’ll define this next
+                                    Receipt.writeReceipt(fullReceipt);      // Writes to file
+                                    os.clearOrder();                         // Clears data
+                                    System.out.println(GREEN + "Thank you! Your order has been confirmed and saved." + RESET);
+                                    order(user); // back to home
+                                    return;
+                                }
+                                case "C", "CANCEL" -> {
+                                    os.clearOrder();
+                                    System.out.println("Order cancelled.");
+                                    order(user);
+                                    return;
+                                }
+                                case "R", "RETURN" -> {
+                                    System.out.println("Returning to Order Screen...");
+                                    orderScreen();
+                                    return;
+                                }
+                                default -> System.out.println("Invalid input. Please enter Y, C, or R.");
+                            }
                         }
                     }
                     default -> System.out.println("Invalid input. Try again");

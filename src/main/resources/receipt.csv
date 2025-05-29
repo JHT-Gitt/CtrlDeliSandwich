@@ -1,32 +1,48 @@
+--- FULL ORDER RECEIPT ---
 
------------
-Name: ji
-Email: jt
-Order #: 15075
-Time: 2025-05-28 18:08:15 PM
-Bread Type: WHITE
-Size: 8
-Toasted: YES
-Meat Premium: HAM
-Extra Meat: NO
-Cheese Premium: SWISS
-Extra Cheese: NO
+Sandwich #1:
 
-Total Price: 10.5
-------------------------------
+--- SANDWICH RECEIPT ---
+Bread Type: Wheat
+Size: 12" - $8.50
+Toasted: Yes
 
------------
-Name: ji
-Email: jt
-Order #: 70895
-Time: 2025-05-28 18:08:44 PM
-Bread Type: WHITE
-Size: 4
-Toasted: NO
-Meat Premium: BACON
-Extra Meat: NO
-Cheese Premium: AMERICAN
-Extra Cheese: NO
+Premium Toppings:
+  - ham: $3.00
+  - ham (Extra): $1.50
+  - cheddar: $2.25
+  - cheddar (Extra): $0.90
 
-Total Price: 7.25
+Regular Toppings:
+  - Onions
+  - Jalapenos
+  - Mayo
+  - Mustard
+  - Sauce
+
+Sandwich Total: $16.15
+--------------------------
+
+Sandwich #2:
+
+--- SANDWICH RECEIPT ---
+Bread Type: White
+Size: 4" - $5.50
+Toasted: Yes
+
+Premium Toppings:
+  - steak: $1.00
+  - steak (Extra): $0.50
+  - cheddar: $0.75
+  - cheddar (Extra): $0.30
+
+Regular Toppings:
+  - Tomatoes
+  - Vinaigrette
+  - Mayo
+  - Au Jus
+
+Sandwich Total: $8.05
+--------------------------
+GRAND TOTAL: $24.20
 ------------------------------
