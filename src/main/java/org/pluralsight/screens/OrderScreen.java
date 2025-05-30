@@ -105,7 +105,7 @@ public class OrderScreen {
                         os.printReceipts();
 
                         while (true) {
-                            System.out.print("\n📌 Confirm order? \n✅ Y - Yes \n❌ C - Cancel order \n⬅️ R - Return\nEnter: ");
+                            System.out.print("\n📌 Confirm order? \n✅ Y - Confirm Order \n❌ C - Cancel order \n⬅️ R - Return\nEnter: ");
                             String input = scanner.next().trim().toUpperCase();
 
                             switch (input) {

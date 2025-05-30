@@ -34,11 +34,11 @@ public class IncludedToppings {
             System.out.println(GREEN + topping + RESET + " added.");
         }
 
-        selectSauces();
-        selectSides();
+        addSauce();
+        addSides();
     }
 
-    private void selectSauces() {
+    private void addSauce() {
         List<String> sauces = Arrays.asList("Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Island", "Vinaigrette");
 
         lines();
@@ -53,7 +53,7 @@ public class IncludedToppings {
         }
     }
 
-    private void selectSides() {
+    private void addSides() {
         List<String> sides = Arrays.asList("Au Jus", "Sauce");
         lines();
         System.out.println(indent + "🍟 " + YELLOW + "SIDES" + RESET + " 🍟");

@@ -12,7 +12,7 @@ public class CustomerFileHandler {
     public static final String RESET = "\u001B[0m";
     public static final String GREEN = "\u001B[32m";
     private static final String cust_file = "src/main/resources/customer.csv";
-    public String indent1 = "                 ";
+    public String indent1 = "              ";
     public String indent2 = "           ";
 
 
