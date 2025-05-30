@@ -22,7 +22,6 @@ public class Receipt {
         try (FileWriter writer = new FileWriter(fileName)) { // No append mode — new file each time
             writer.write(receipt);
             writer.write("\n------------------------------\n");
-            System.out.println("✅ Receipt saved to: " + fileName);
         } catch (IOException e) {
             System.out.println("❌ Error writing to receipt file: " + e.getMessage());
         }

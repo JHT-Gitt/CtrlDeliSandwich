@@ -1,0 +1,15 @@
+--- FULL ORDER RECEIPT ---
+
+2025-05-30 11:35:07 AM
+Order #: 32179
+Customer name: GUEST12616
+Email: n/a
+
+🍟 Chips:
+  + Doritos
+  + Doritos
+Chips Total: $3.00
+
+GRAND TOTAL: $3.00
+
+------------------------------

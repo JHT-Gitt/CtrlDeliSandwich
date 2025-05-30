@@ -1,0 +1,48 @@
+--- FULL ORDER RECEIPT ---
+
+2025-05-30 11:27:02 AM
+Order #: 56167
+Customer name: RYAN
+Email: r_smith@yahoo.com
+
+Sandwich #1:
+
+--- SANDWICH RECEIPT ---
+Bread Type: Wheat
+Size: 12" - $8.50
+Toasted: Yes
+
+Premium Toppings:
+  + chicken: $3.00
+  + chicken (Extra): $1.50
+  + cheddar: $2.25
+  + cheddar (Extra): $0.90
+
+Regular Toppings:
+  + Onions
+  + Peppers
+  + Tomatoes
+  + Ketchup
+  + Mustard
+  + Mayo
+  + Sauce
+
+Sandwich Total: $16.15
+--------------------------
+
+🥤 Drinks:
+  + Fanta (M)
+  + Coke (S)
+Drinks Total: $4.50
+
+🍟 Chips:
+  + Doritos
+  + Doritos
+  + Pringles
+Chips Total: $4.50
+
+Grand Total before discount: $25.15
+Member Discount (15%): -$3.77
+GRAND TOTAL: $21.38
+
+------------------------------
