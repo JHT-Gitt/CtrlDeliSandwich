@@ -10,7 +10,7 @@ public class Receipt {
 
 
     public static void writeReceipt(String receipt) {
-        try (FileWriter writer = new FileWriter(file, true)) { // `true` = append mode
+        try (FileWriter writer = new FileWriter(file, true)) { // Appending the file
             writer.write(receipt);
             writer.write("\n------------------------------\n");
         } catch (IOException e) {

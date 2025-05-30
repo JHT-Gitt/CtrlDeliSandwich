@@ -12,24 +12,25 @@ public class OrderScreen {
     public static final String GREEN = "\u001B[32m";
     public static final String RED = "\u001B[31m";
 
-    private final Login user;
-    private final Order os;
-    public String indent="              ";
-    public String indent1="            ";
-
+    private final Login user; // Logged-in or guest user
+    private final Order os;  // Order handler for current session
+    public String indent="              "; // Indenter
+    public String indent1="            "; // Indenter
 
     Scanner scanner = new Scanner(System.in);
+    // Constructor accepts user info and links it to the order object
     public OrderScreen(Login user) {
         this.user = user;
         this.os = new Order(user);
     }
-
+    // Main home menu after user login or guest access
     public void order(Login user){
 
         System.out.println("=============="+ YELLOW + "HOME SCREEN" +RESET + "==================");
         System.out.println(indent + " 1 - New Order");
         System.out.println(indent + " 0 - Exit");
-        os.lines();
+        os.lines();// Print divider line
+        // Menu loop
         while(true) {
         try {
         System.out.print("Enter: ");
@@ -38,25 +39,25 @@ public class OrderScreen {
             switch (enter){
                 case 0 ->{
                     System.out.println("Goodbye and Have a great day 👋");
-                    System.exit(0);
+                    System.exit(0);  // Exit program
                     //return;
                 }
-                case 1 -> orderScreen();
+                case 1 -> orderScreen();  // Go to order screen
                 default -> System.out.println("Invalid input. Try again");
             }
         } catch (Exception e) {
             System.out.println("Invalid input. Please enter a number.");
-            scanner.nextLine();
+            scanner.nextLine(); // Clear scanner buffer
         }
         }
     }
-
+    //Placeholder for signature sandwich tho I got no time to do it *sniff *womp *womp
     private void signatureSandwich() {
         System.out.println("Still empty");
 
     }
+    // The core order flow screen with options to add items or checkout
     private void orderScreen() {
-
 
         System.out.println("=============="+ YELLOW + "ORDER SCREEN" +RESET + "=================");
         System.out.println(" 1 - Add Customize Sandwich");
@@ -66,6 +67,7 @@ public class OrderScreen {
         System.out.println(" 5 - Checkout");
         System.out.println(" 0 - Cancel Order");
         os.lines();
+        // Loop for order options
         while(true) {
             try {
                 System.out.print("Enter: ");
@@ -73,7 +75,7 @@ public class OrderScreen {
 
                 switch (enter){
                     case 0 ->{
-                        System.out.print("Do you want to cancel this session? (Y/N): ");
+                        System.out.print("Do you want to cancel this session? (Y/N): "); // Ask for confirmation before canceling
                         String confirm = scanner.next().toUpperCase();
                         if (confirm.equals("Y") || confirm.equals("YES")) {
                             os.clearOrder();  // <--- this clears everything
@@ -85,39 +87,40 @@ public class OrderScreen {
                         }
                     }
                     case 1 -> {
-                        os.addSandwich();
-                        orderScreen();
+                        os.addSandwich();  // Add custom sandwich
+                        orderScreen(); // Return back to this screen after adding
                     }
                     case 2 -> {
-                        os.addDrinks();
-                        orderScreen();
+                        os.addDrinks(); // Add drink to order
+                        orderScreen(); // Return back to this screen after adding
                     }
                     case 3 -> {
-                        os.addChips();
-                        orderScreen();
+                        os.addChips();  // Add chips to order
+                        orderScreen(); // Return back to this screen after adding
                     }
                     case 4 -> {
-                        System.out.println("Feature not Added yet");
+                        System.out.println("Feature not Added yet"); // Feature to be implemented, I hope, maybe or one day 😿
                         orderScreen();
                     }
                     case 5 -> {
+                        // If no items in order, order first :P
                         if (os.isOrderEmpty()) {
                             System.out.println(indent1 +RED +"⚠️Order is empty.⚠️\n" + RESET);
                             orderScreen();
                             return;
                         }
 
-                        os.printReceipts();
-
+                        os.printReceipts(); // Show order summary
+                        // Confirmation loop before finalizing order
                         while (true) {
                             System.out.print("\n📌 Confirm order? \n✅ Y - Confirm Order \n❌ C - Cancel order \n⬅️ R - Return\nEnter: ");
                             String input = scanner.next().trim().toUpperCase();
 
                             switch (input) {
                                 case "Y", "YES" -> {
-                                    String fullReceipt = os.buildReceipt();
-                                    Receipt.writeReceipt(fullReceipt);
-                                    os.clearOrder();
+                                    String fullReceipt = os.buildReceipt(); // Build final receipt
+                                    Receipt.writeReceipt(fullReceipt);      // Save to file
+                                    os.clearOrder();                        // Clear current session
                                     System.out.println(GREEN + "Thank you! Your order has been confirmed and saved." + RESET);
                                     order(user); // back to home
                                     return;
@@ -142,7 +145,7 @@ public class OrderScreen {
                 break;
             } catch (Exception e) {
                 System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine();
+                scanner.nextLine();  // Clear invalid input
             }
         }
 

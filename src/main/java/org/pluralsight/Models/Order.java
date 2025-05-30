@@ -26,6 +26,7 @@ public class Order {
     public String leftIndent = "        ";
 
     private Login user;
+    // Item collections
     private final List<String> drinksOrdered = new ArrayList<>();
     private final List<String> chipsOrdered = new ArrayList<>();
     private double drinksTotal = 0;
@@ -35,15 +36,15 @@ public class Order {
     List<Toppings> premiumMeat = new ArrayList<>();
     List<Toppings> premiumCheese = new ArrayList<>();
     List<String> allReceipts = new ArrayList<>();
-   // IncludedToppings it = new IncludedToppings(sandwich);
 
     public Order(Login user){
-        this.user = user;
+        this.user = user; // Assign user (guest or member) to the order
     }
-
+    // Begin sandwich order process
     public void addSandwich(){
         Sandwich<ITopping> sandwich = new Sandwich<>(size);
         int enter;
+        // Bread type selection
         lines();
         System.out.println(YELLOW + "Select Sandwich Bread type:" + RESET);
         System.out.println(" 1 - White ");
@@ -73,10 +74,11 @@ public class Order {
                 scanner.nextLine();
             }
         }
-        sandwich.setBreadType(breadType);
-        breadSize(sandwich);
+        sandwich.setBreadType(breadType); // Set the breadtype to sandwich
+        breadSize(sandwich);  // Proceed to select sandwich size
     }
 
+    // Choose size and price of sandwich
     public void breadSize(Sandwich<ITopping> sandwich){
         double s = 5.50;
         double m = 7.00;
@@ -110,7 +112,7 @@ public class Order {
             }
         }
         lines();
-        sandwich.setSize(size);
+        sandwich.setSize(size); // Store and set the bread size
 
         meat(sandwich);
     }
@@ -142,7 +144,7 @@ public class Order {
             for (Toppings t : premiumMeat) {
                 if (t.getName().equalsIgnoreCase(meat)) {
                     meatPremium=meat;
-                    sandwich.addTopping(new Meat(meatPremium));
+                    sandwich.addTopping(new Meat(meatPremium)); // Store the Premium meat on Toppings
                     isFound = true;
                     break;
                 }
@@ -219,8 +221,8 @@ public class Order {
             }
         }
         lines();
-        it.freeTop();
-            lines();
+        it.freeTop(); // Add included sauces, toppings, sides
+        lines();
         while (true) {
             System.out.print(GREEN + "Do you want it toasted [Y/N] ?: " + RESET);
             String toastedInput = scanner.nextLine().trim().toLowerCase();
@@ -237,7 +239,7 @@ public class Order {
         }
         lines();
         sandwich.setToasted(isToasted);
-        sandwichOrders.add(sandwich);
+        sandwichOrders.add(sandwich);  // Add fully built sandwich to order
         System.out.println();
         System.out.println(leftIndent + GREEN + "🥖 Sandwich added! 🥖\n" + RESET);
 
@@ -313,6 +315,7 @@ public void addDrinks() {
             }
         }
     }
+    // Handles integer input safely
     private int getIntInput() {
         while (!scanner.hasNextInt()) {
             System.out.print("Enter a number: ");
@@ -322,7 +325,7 @@ public void addDrinks() {
         scanner.nextLine(); // consume newline
         return value;
     }
-
+    // Clear current order details
     public void clearOrder() {
         sandwichOrders.clear();
         allReceipts.clear();
@@ -333,11 +336,11 @@ public void addDrinks() {
         drinksTotal = 0;
         chipsTotal = 0;
     }
-
-
+    // Check if the order has any items
     public boolean isOrderEmpty() {
         return sandwichOrders.isEmpty() && drinksOrdered.isEmpty() && chipsOrdered.isEmpty();
     }
+    // Print the full order summary to console
     public void printReceipts() {
         double sandwichesTotal = 0;
         StringBuilder receipt = new StringBuilder("--- FULL ORDER RECEIPT ---\n");
@@ -371,7 +374,7 @@ public void addDrinks() {
         if (isMember) {
             double discount = grandTotal * 0.15;
 
-            receipt.append("\n").append("Grand Total before discount: ").append(String.format("$%.2f", grandTotal));
+            receipt.append("\n").append("Grand Total before discount: ").append(String.format("$%.2f", grandTotal)); // Showing the Grand total before discount
             receipt.append("\n").append(GREEN).append("Member Discount (15%): -$").append(String.format("%.2f", discount)).append(RESET);
             grandTotal -= discount;
         }
@@ -381,7 +384,7 @@ public void addDrinks() {
 
         System.out.println(receipt);
     }
-
+    // Generate the full receipt string for file writing
     public String buildReceipt() {
 
         LocalDateTime now = LocalDateTime.now();
@@ -392,10 +395,10 @@ public void addDrinks() {
         double sandwichesTotal = 0;
         StringBuilder receipt = new StringBuilder("--- FULL ORDER RECEIPT ---\n");
 
-        receipt.append("\n").append(timestamp).append("\n");
-        receipt.append("Order #: ").append(orderNumber).append("\n");
-        receipt.append("Customer name: ").append(user.getFirstname().toUpperCase()).append("\n");
-        receipt.append("Email: ").append(user.getEmail().toLowerCase()).append("\n");
+        receipt.append("\n").append(timestamp).append("\n");    // Printing time
+        receipt.append("Order #: ").append(orderNumber).append("\n"); // Printing Random Order number
+        receipt.append("Customer name: ").append(user.getFirstname().toUpperCase()).append("\n"); // Printing current user firstname
+        receipt.append("Email: ").append(user.getEmail().toLowerCase()).append("\n"); // Printing current user email
 
         int count = 1;
         for (Sandwich<ITopping> s : sandwichOrders) {
@@ -421,10 +424,11 @@ public void addDrinks() {
         }
         double grandTotal = sandwichesTotal + drinksTotal + chipsTotal;
 
-        boolean isMember = (!user.getFirstname().contains("GUEST"));
+        boolean isMember = (!user.getFirstname().contains("GUEST")); // Check if the user is a member
 
         if (isMember) {
-            double discount = grandTotal * 0.15;
+            double discount = grandTotal * 0.15; // If member, applying 15% off
+            receipt.append("\n").append("Grand Total before discount: ").append(String.format("$%.2f", grandTotal)); // Showing the Grand total before discount
             receipt.append("\nMember Discount (15%): -$").append(String.format("%.2f", discount));
             grandTotal -= discount;
         }
@@ -432,7 +436,7 @@ public void addDrinks() {
         receipt.append("\n").append("GRAND TOTAL: $")
                 .append(String.format("%.2f", grandTotal)).append("\n");
 
-        return receipt.toString();
+        return receipt.toString();  // Used by Receipt.writeReceipt()
     }
 
 

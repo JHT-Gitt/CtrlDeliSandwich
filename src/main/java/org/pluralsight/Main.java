@@ -14,7 +14,7 @@ public class Main {
         System.out.println("Press Enter to continue ------------------>");
         scanner.nextLine();
 
-        Home h = new Home();
+        Home h = new Home(); // Good ol clean lonely Main
         h.display();
 
     }
