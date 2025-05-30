@@ -356,7 +356,7 @@ public void addDrinks() {
         if (!drinksOrdered.isEmpty()) {
             receipt.append("\n🥤 Drinks:\n");
             for (String d : drinksOrdered) {
-                receipt.append("  - ").append(d).append("\n");
+                receipt.append("  + ").append(d).append("\n");
             }
             receipt.append("Drinks Total: $").append(String.format("%.2f", drinksTotal)).append("\n");
         }
@@ -364,7 +364,7 @@ public void addDrinks() {
         if (!chipsOrdered.isEmpty()) {
             receipt.append("\n🍟 Chips:\n");
             for (String c : chipsOrdered) {
-                receipt.append("  - ").append(c).append("\n");
+                receipt.append("  + ").append(c).append("\n");
             }
             receipt.append("Chips Total: $").append(String.format("%.2f", chipsTotal)).append("\n");
         }
@@ -411,7 +411,7 @@ public void addDrinks() {
         if (!drinksOrdered.isEmpty()) {
             receipt.append("\n🥤 Drinks:\n");
             for (String d : drinksOrdered) {
-                receipt.append("  - ").append(d).append("\n");
+                receipt.append("  + ").append(d).append("\n");
             }
             receipt.append("Drinks Total: $").append(String.format("%.2f", drinksTotal)).append("\n");
         }
@@ -419,7 +419,7 @@ public void addDrinks() {
         if (!chipsOrdered.isEmpty()) {
             receipt.append("\n🍟 Chips:\n");
             for (String c : chipsOrdered) {
-                receipt.append("  - ").append(c).append("\n");
+                receipt.append("  + ").append(c).append("\n");
             }
             receipt.append("Chips Total: $").append(String.format("%.2f", chipsTotal)).append("\n");
         }

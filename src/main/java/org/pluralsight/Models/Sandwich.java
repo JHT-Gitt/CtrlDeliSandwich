@@ -70,7 +70,7 @@ public String getReceipt() {
     if (!premiumToppings.isEmpty()) {
         sb.append("\nPremium Toppings:\n");
         for (ITopping topping : premiumToppings) {
-            sb.append("  - ").append(topping.getDescription())
+            sb.append("  + ").append(topping.getDescription())
                     .append(": $").append(String.format("%.2f", topping.getPrice(size))).append("\n");
         }
     }
@@ -78,7 +78,7 @@ public String getReceipt() {
     if (!basicToppings.isEmpty()) {
         sb.append("\nRegular Toppings:\n");
         for (ITopping topping : basicToppings) {
-            sb.append("  - ").append(topping.getDescription()).append("\n");
+            sb.append("  + ").append(topping.getDescription()).append("\n");
         }
     }
 
