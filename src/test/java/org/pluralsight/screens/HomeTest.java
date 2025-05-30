@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class HomeTest {
 
     @Test
-    void validateLogin_withCorrectCredentials_returnsTrue() {
+    void validateIfTrue() {
         Home home = new Home();
         // Pass if exist in customer.csv
         String email = "1";
@@ -16,7 +16,7 @@ public class HomeTest {
     }
 
     @Test
-    void validateLogin_withInvalidCredentials_returnsFalse() {
+    void validateIfFalse() {
         Home home = new Home();
         // Pass if it doesn't exist in customer.csv
         String email = "invalid@domain.com";
