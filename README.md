@@ -19,6 +19,11 @@
 ## SAMPLE SCREENSHOT
 <img src="https://github.com/JHT-Gitt/CtrlDeliSandwich/blob/master/Diagram/s3.png" width="200" height="300"> <img src="https://github.com/JHT-Gitt/CtrlDeliSandwich/blob/master/Diagram/s4.png" width="200" height="300"> <img src="https://github.com/JHT-Gitt/CtrlDeliSandwich/blob/master/Diagram/s5.png" width="200" height="300">
 <br>
+### My Favorite Piece of Code: <br>
+<img src="https://github.com/JHT-Gitt/CtrlDeliSandwich/blob/master/Diagram/s6.png" width="450" height="300"> <br>
+
+#### It separates my premium toppings and regular toppings to print separately in the receipt
+
 ### CREDITS AND RESOURCES:
 - Workbook 4 to 6
 - [Google Search](https://google.com)
