@@ -40,6 +40,7 @@ public class Order {
     public Order(Login user){
         this.user = user; // Assign user (guest or member) to the order
     }
+
     // Begin sandwich order process
     public void addSandwich(){
         Sandwich<ITopping> sandwich = new Sandwich<>(size);

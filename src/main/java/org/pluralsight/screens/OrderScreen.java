@@ -121,7 +121,7 @@ public class OrderScreen {
                                     String fullReceipt = os.buildReceipt(); // Build final receipt
                                     Receipt.writeReceipt(fullReceipt);      // Save to file
                                     os.clearOrder();                        // Clear current session
-                                    System.out.println(GREEN + "Thank you! Your order has been confirmed and saved." + RESET);
+                                    System.out.println(GREEN + "Thank you for your purchased ! \nYour order has been confirmed and saved." + RESET); // Checkout message
                                     order(user); // back to home
                                     return;
                                 }

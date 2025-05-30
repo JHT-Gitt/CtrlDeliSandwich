@@ -54,6 +54,9 @@ public class Home {
         System.out.printf("%26s\n","Sandwiches");
         lines();
     }
+    public boolean validateLogin(String email, String password) {  // Log in method use to Unit Testing
+        return cf.loginUser(email, password) != null;
+    }
     public void logIn() {
         System.out.println("==================" + YELLOW + "Log-In" + RESET + "===================");
         while (true) {
