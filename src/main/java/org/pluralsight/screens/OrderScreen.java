@@ -98,7 +98,8 @@ public class OrderScreen {
                     }
                     case 5 -> {
                         if (os.isOrderEmpty()) {
-                            System.out.println("⚠️Your order is empty. \nPlease add sandwiches, drinks, or chips before checking out.⚠️");                            orderScreen();
+                            System.out.println("⚠️Your order is empty. \nPlease add sandwiches, drinks, or chips before checking out.⚠️");
+                            orderScreen();
                             return;
                         }
 
