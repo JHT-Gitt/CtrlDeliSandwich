@@ -281,8 +281,6 @@ public void addDrinks() {
                 }
             }
 
-
-
         } else {
             System.out.println("Invalid drink number.");
         }
@@ -373,6 +371,7 @@ public void addDrinks() {
         if (isMember) {
             double discount = grandTotal * 0.15;
 
+            receipt.append("\n").append("Grand Total before discount: ").append(String.format("$%.2f", grandTotal));
             receipt.append("\n").append(GREEN).append("Member Discount (15%): -$").append(String.format("%.2f", discount)).append(RESET);
             grandTotal -= discount;
         }
@@ -390,9 +389,6 @@ public void addDrinks() {
         String timestamp = now.format(formatter);
         int orderNumber = new Random().nextInt(90000) + 10000;
 
-
-
-
         double sandwichesTotal = 0;
         StringBuilder receipt = new StringBuilder("--- FULL ORDER RECEIPT ---\n");
 
@@ -400,7 +396,6 @@ public void addDrinks() {
         receipt.append("Order #: ").append(orderNumber).append("\n");
         receipt.append("Customer name: ").append(user.getFirstname().toUpperCase()).append("\n");
         receipt.append("Email: ").append(user.getEmail().toLowerCase()).append("\n");
-
 
         int count = 1;
         for (Sandwich<ITopping> s : sandwichOrders) {

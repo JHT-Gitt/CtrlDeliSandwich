@@ -10,9 +10,13 @@ public class OrderScreen {
     public static final String YELLOW = "\u001B[33m";
     public static final String RESET = "\u001B[0m";
     public static final String GREEN = "\u001B[32m";
+    public static final String RED = "\u001B[31m";
+
     private final Login user;
     private final Order os;
     public String indent="              ";
+    public String indent1="            ";
+
 
     Scanner scanner = new Scanner(System.in);
     public OrderScreen(Login user) {
@@ -98,7 +102,7 @@ public class OrderScreen {
                     }
                     case 5 -> {
                         if (os.isOrderEmpty()) {
-                            System.out.println("⚠️Your order is empty. \nPlease add sandwiches, drinks, or chips before checking out.⚠️");
+                            System.out.println(indent1 +RED +"⚠️Order is empty.⚠️\n" + RESET);
                             orderScreen();
                             return;
                         }
