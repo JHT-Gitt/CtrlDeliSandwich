@@ -1,0 +1,15 @@
+--- FULL ORDER RECEIPT ---
+
+2025-05-30 10:50:13 AM
+Order #: 90450
+Customer name: GUEST41075
+Email: n/a
+
+🍟 Chips:
+  + Doritos
+  + Fritos
+Chips Total: $3.00
+
+GRAND TOTAL: $3.00
+
+------------------------------
